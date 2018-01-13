@@ -17,22 +17,26 @@ function SubmitBtn ({ onPress }) {
 }
 export default class AddDeck extends Component {
   state = {
-    title: ''
+    title: '',
+    questions: []
   }
   changeText = (value) => {
     this.setState({title: value})
   }
   submit = () => {
-    const { title } = state
-    // Update Redux
+    const { title, questions } = state
 
-    this.setState({title: ''})
+    if (title && title.trim().length > 0) {
+      // Update Redux
 
-    // Navigate to AddCard
+      this.setState({title: ''})
 
-    submitDeck({ title })
+      // Navigate to AddCard
 
-    // Save to AsyncStorage
+      submitDeck({ title, questions })
+
+      // Save to AsyncStorage
+    }
   }
   render() {
     const { title } = this.state
