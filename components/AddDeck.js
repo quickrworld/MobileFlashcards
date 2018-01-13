@@ -6,6 +6,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { submitDeck } from '../utils/api'
+import { connect } from 'react-redux'
+import { addDeck } from '../actions'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -15,7 +17,7 @@ function SubmitBtn ({ onPress }) {
     </TouchableOpacity>
   )
 }
-export default class AddDeck extends Component {
+class AddDeck extends Component {
   state = {
     title: '',
     questions: []
@@ -28,6 +30,10 @@ export default class AddDeck extends Component {
 
     if (title && title.trim().length > 0) {
       // Update Redux
+      this.props.dispatch(addDeck({
+        title,
+        questions
+      }))
 
       this.setState({title: ''})
 
@@ -53,3 +59,5 @@ export default class AddDeck extends Component {
     )
   }
 }
+
+export default connect()(AddDeck)

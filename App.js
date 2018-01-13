@@ -7,13 +7,13 @@ import reducer from './reducers'
 
 export default class App extends React.Component {
   render() {
-    <Provider store={createStore(reducer)}>
-      <View>
-        return (
+    return (
+      <Provider store={createStore(reducer)}>
+        <View>
           <AddDeck/>
-        )
-      </View>
-    </Provider>
+        </View>
+      </Provider>
+    )
   }
 }
 
