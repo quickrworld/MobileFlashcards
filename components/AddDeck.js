@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   KeyboardAvoidingView,
   Text,
+  View,
   TextInput,
   TouchableOpacity
 } from 'react-native'
@@ -47,12 +48,15 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <KeyboardAvoidingView behavior={'padding'}>
-        <Text>
-          What is the title of your Deck?
-        </Text>
+      <KeyboardAvoidingView style={{flex:1}} behavior={'padding'}>
+        <View>
+          <Text>
+            What is the title of your Deck?
+          </Text>
+        </View>
         <TextInput
           value={title}
+          placeholder={'Title'}
           onChangeText={(value) => this.changeText(value)}/>
         <SubmitBtn onPress={this.submit}/>
       </KeyboardAvoidingView>
