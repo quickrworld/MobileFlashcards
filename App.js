@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, } from 'react-native'
+import { View } from 'react-native'
 import { TabNavigator } from 'react-navigation'
-import AddDeck from './components/AddDeck'
+import AddQuiz from './components/AddQuiz'
 import DeckList from './components/DeckList'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -11,13 +11,13 @@ const Tabs = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      title: 'Decks',
+      title: 'DECKS',
     }
   },
-  AddDeck: {
-    screen: AddDeck,
+  AddQuiz: {
+    screen: AddQuiz,
     navigationOptions: {
-      title: 'New Deck',
+      title: 'NEW DECK',
     }
   }
 })
@@ -32,12 +32,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

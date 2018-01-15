@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 export default function Deck(props) {
-  const { title, count } = props
+  const { title, count, cards } = props
   return (
     <View style={styles.deckContainer}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.subtitle}>{count} Cards</Text>
+      <Text>{JSON.stringify(cards)}</Text>
     </View>
   )
 }
