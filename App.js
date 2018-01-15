@@ -2,14 +2,15 @@ import React from 'react'
 import { View } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import AddQuiz from './components/AddQuiz'
+import Main from './components/Main'
 import DeckList from './components/DeckList'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 
 const Tabs = TabNavigator({
-  DeckList: {
-    screen: DeckList,
+  Main: {
+    screen: Main,
     navigationOptions: {
       title: 'DECKS',
     }

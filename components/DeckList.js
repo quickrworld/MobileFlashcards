@@ -4,7 +4,7 @@ import Deck from './Deck'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 
-function EmptyListScreen(props) {
+function EmptyListScreen() {
   return (
     <View>
       <Text>There are no quiz decks yet</Text>
@@ -31,6 +31,7 @@ class DeckList extends React.Component {
       return <Deck
         title={item.title}
         count={item.count}
+        navigation={this.props.navigation}
       />
     }
     return (

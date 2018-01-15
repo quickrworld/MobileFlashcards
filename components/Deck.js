@@ -1,12 +1,24 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-export default function Deck(props) {
-  const { title, count, cards } = props
+import connect from 'redux'
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+} from 'react-native'
+
+function Deck(props) {
+  const { title, count, cards, navigation } = props
+  const onPress = () => {
+    navigation.navigate('QuizStart')
+  }
   return (
     <View style={styles.deckContainer}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{count} Cards</Text>
-      <Text>{JSON.stringify(cards)}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{count} Cards</Text>
+        <Text>{JSON.stringify(cards)}</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -27,3 +39,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 })
+
+// export default connect()(Deck)
+
