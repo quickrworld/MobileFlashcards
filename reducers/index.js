@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS, ADD_DECK, ADD_CARD, QUIZ_START} from '../actions'
+import {RECEIVE_DECKS, ADD_DECK, ADD_CARD, QUIZ_START, INIT_ANSWERING} from '../actions'
 
 function decks(state = {}, action) {
   const { cards, decks, title, question, answer } = action
@@ -26,6 +26,17 @@ function decks(state = {}, action) {
           [title]: { title: title, cards: cards }
         },
         editing: title,
+      }
+    case INIT_ANSWERING:
+      return {
+        ...state,
+        decks: {
+          ...state.decks,
+          [title]: {
+            ...state.decks[title],
+            answering: 0,
+          }
+        }
       }
     case ADD_CARD:
       const newDecks = Object.assign({}, state.decks)
