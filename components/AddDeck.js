@@ -33,7 +33,7 @@ class AddDeck extends Component {
     this.props.dispatch(addDeck(title))
     this.setState({title: ''})
     submitDeck({ title })
-    this.props.navigation.navigate('Card')
+    this.props.navigation.navigate('AddCard')
   }
   render() {
     const { title } = this.state

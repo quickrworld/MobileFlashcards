@@ -3,6 +3,7 @@ import { Platform, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import DeckList from './DeckList'
 import QuizStart from './QuizStart'
+import AddCard from './AddCard'
 
 const StackMain = StackNavigator({
   DeckList: {
@@ -24,6 +25,9 @@ const StackMain = StackNavigator({
       : {
         header: null,
       }
+  },
+  AddCard: {
+    screen: AddCard,
   },
 })
 class Main extends Component {

@@ -1,26 +1,30 @@
 import React from 'react'
-import connect from 'redux'
+import { connect } from 'react-redux'
 import {
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
 } from 'react-native'
+import { quizStart } from '../actions/index'
 
-function Deck(props) {
-  const { title, count, cards, navigation } = props
-  const onPress = () => {
-    navigation.navigate('QuizStart')
+class Deck extends React.Component {
+  onPress = () => {
+    this.props.dispatch(quizStart(this.props.title))
+    this.props.navigation.navigate('QuizStart')
   }
-  return (
-    <View style={styles.deckContainer}>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{count} Cards</Text>
-        <Text>{JSON.stringify(cards)}</Text>
-      </TouchableOpacity>
-    </View>
-  )
+  render() {
+    const { title, count, cards } = this.props
+    return (
+      <View style={styles.deckContainer}>
+        <TouchableOpacity onPress={this.onPress}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{count} Cards</Text>
+          <Text>{JSON.stringify(cards)}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -40,5 +44,5 @@ const styles = StyleSheet.create({
   },
 })
 
-// export default connect()(Deck)
+export default connect()(Deck)
 

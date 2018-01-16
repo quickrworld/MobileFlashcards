@@ -15,7 +15,7 @@ const Stack = StackNavigator({
           header: null,
         }
   },
-  Card: {
+  AddCard: {
     screen: AddCard,
     navigationOptions: Platform.OS === 'ios'
       ? {
