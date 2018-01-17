@@ -21,11 +21,13 @@ class QuizStart extends React.Component {
     return (
       <View>
         <Text>{title}</Text>
-        <Text>{count} Cards</Text>
+        <Text>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
         <TouchableOpacity onPress={this.onAddCard}>
           <Text>Add Card</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.onStartQuiz}>
+        <TouchableOpacity
+          onPress={this.onStartQuiz}
+          disabled={count < 1}>
           <Text>Start Quiz</Text>
         </TouchableOpacity>
       </View>

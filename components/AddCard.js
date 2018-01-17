@@ -8,14 +8,14 @@ import {
 } from 'react-native'
 import { addCard } from '../actions'
 
-function SubmitBtn ({ onPress }) {
-  return (
-    <TouchableOpacity
-      onPress={onPress}>
-      <Text>Submit</Text>
-    </TouchableOpacity>
-  )
-}
+// function SubmitBtn ({ onPress }) {
+//   return (
+//     <TouchableOpacity
+//       onPress={onPress}>
+//       <Text>Submit</Text>
+//     </TouchableOpacity>
+//   )
+// }
 
 class AddCard extends Component {
   state = { question: '', answer: ''}
@@ -28,7 +28,7 @@ class AddCard extends Component {
   submit = () => {
     const title = this.props.state.editing
     const { question, answer } = this.state
-    this.props.dispatch(addCard(title, question, answer,))
+    this.props.dispatch(addCard(title, question, answer))
     this.setState({ question: '', answer: '' })
   }
   render() {
@@ -39,7 +39,7 @@ class AddCard extends Component {
     return (
       <View>
         <Text>{title}</Text>
-        <Text>{count} Cards</Text>
+        <Text>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
         <TextInput
           placeholder={'Question'}
           value={question}
@@ -48,7 +48,11 @@ class AddCard extends Component {
           placeholder={'Answer'}
           value={answer}
           onChangeText={(value) => this.changeAnswerText(value)}/>
-        <SubmitBtn onPress={this.submit}/>
+        <TouchableOpacity
+          onPress={this.submit}
+          disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
       </View>
     )
   }
