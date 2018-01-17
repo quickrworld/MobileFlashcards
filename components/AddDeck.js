@@ -33,7 +33,8 @@ class AddDeck extends Component {
     this.props.dispatch(addDeck(title))
     this.setState({title: ''})
     submitDeck({ title })
-    this.props.navigation.navigate('AddCard')
+    // this.props.navigation.navigate('AddCard')
+    this.props.navigation.navigate('QuizStart')
   }
   render() {
     const { title } = this.state
@@ -54,4 +55,7 @@ class AddDeck extends Component {
   }
 }
 
-export default connect()(AddDeck)
+function mapStateToProps(state) {
+  return { state }
+}
+export default connect(mapStateToProps)(AddDeck)

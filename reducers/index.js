@@ -26,6 +26,7 @@ function decks(state = {}, action) {
           [title]: { title: title, cards: cards }
         },
         editing: title,
+        viewing: title, // we plan to navigate to the home of the quiz just added
       }
     case INIT_ANSWERING:
       return {
