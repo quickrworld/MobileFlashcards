@@ -3,28 +3,18 @@ import { Platform, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import AddDeck from './AddDeck'
 import AddCard from './AddCard'
+import QuizStart from './QuizStart'
 
 const Stack = StackNavigator({
   Deck: {
     screen: AddDeck,
-    navigationOptions: Platform.OS === 'ios'
-      ? {
-          title: 'New Deck',
-        }
-      : {
-          header: null,
-        }
   },
   AddCard: {
     screen: AddCard,
-    navigationOptions: Platform.OS === 'ios'
-      ? {
-          title: 'New Card',
-        }
-      : {
-          header: null,
-        }
   },
+  QuizStart: {
+    screen: QuizStart,
+  }
 })
 class AddQuiz extends Component {
   render() {

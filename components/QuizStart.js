@@ -36,7 +36,9 @@ class QuizStart extends React.Component {
 function mapStateToProps(state) {
   return {
     title: state.viewing,
-    count: state.decks[state.viewing].cards.length
+    count: (state.decks[state.viewing] &&
+      state.decks[state.viewing].cards &&
+      state.decks[state.viewing].cards.length) || 0
   }
 }
 

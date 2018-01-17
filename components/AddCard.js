@@ -6,8 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-
-import {addCard} from '../actions'
+import { addCard } from '../actions'
 
 function SubmitBtn ({ onPress }) {
   return (
@@ -39,8 +38,8 @@ class AddCard extends Component {
     const { question, answer } = this.state
     return (
       <View>
-        <Text>{JSON.stringify(title)}</Text>
-        <Text>{JSON.stringify(count)} Cards</Text>
+        <Text>{title}</Text>
+        <Text>{count} Cards</Text>
         <TextInput
           placeholder={'Question'}
           value={question}

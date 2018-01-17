@@ -23,32 +23,30 @@ class QuizCard extends React.Component {
     const question = deck.cards[deck.answering].question
     const answer = deck.cards[deck.answering].answer
     console.log('state', this.props.state)
-    return(
-      <View>
-        <Text>{viewing}</Text>
-        <Text>{answering+1} of {count}</Text>
-        {!this.state.showAnswer &&
-          <Text>{question}</Text>}
-        {this.state.showAnswer &&
-          <Text>{answer}</Text>}
-        {!this.state.showAnswer &&
-          <TouchableOpacity onPress={this.toggleView}>
-            <Text>Answer</Text>
-          </TouchableOpacity>}
-        {this.state.showAnswer &&
-          <TouchableOpacity onPress={this.toggleView}>
-            <Text>Question</Text>
-          </TouchableOpacity>}
-        {this.state.showAnswer &&
-          <TouchableOpacity>
-            <Text>Correct</Text>
-          </TouchableOpacity>}
-        {this.state.showAnswer &&
-          <TouchableOpacity>
-            <Text>Incorrect</Text>
-          </TouchableOpacity>}
-      </View>
-    )
+    return <View>
+      <Text>{viewing}</Text>
+      <Text>{answering + 1}/{count}</Text>
+      {!this.state.showAnswer &&
+      <Text>{question}</Text>}
+      {this.state.showAnswer &&
+      <Text>{answer}</Text>}
+      {!this.state.showAnswer &&
+      <TouchableOpacity onPress={this.toggleView}>
+        <Text>Answer</Text>
+      </TouchableOpacity>}
+      {this.state.showAnswer &&
+      <TouchableOpacity onPress={this.toggleView}>
+        <Text>Question</Text>
+      </TouchableOpacity>}
+      {this.state.showAnswer &&
+      <TouchableOpacity>
+        <Text>Correct</Text>
+      </TouchableOpacity>}
+      {this.state.showAnswer &&
+      <TouchableOpacity>
+        <Text>Incorrect</Text>
+      </TouchableOpacity>}
+    </View>
   }
 }
 
