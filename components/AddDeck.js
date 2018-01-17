@@ -30,10 +30,9 @@ class AddDeck extends Component {
   }
   submit = () => {
     const { title } = this.state
-    this.props.dispatch(addDeck(title))
+    this.props.addDeck(title)
     this.setState({title: ''})
     submitDeck({ title })
-    // this.props.navigation.navigate('AddCard')
     this.props.navigation.navigate('QuizStart')
   }
   render() {
@@ -58,4 +57,10 @@ class AddDeck extends Component {
 function mapStateToProps(state) {
   return { state }
 }
-export default connect(mapStateToProps)(AddDeck)
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addDeck: (title) => dispatch(addDeck(title))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)

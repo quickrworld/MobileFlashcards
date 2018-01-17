@@ -7,7 +7,7 @@ import {
 import { connect } from 'react-redux'
 import { nextCard } from '../actions/index'
 import { quizComplete } from '../actions/index'
-import {initAnswering} from '../actions'
+import { initAnswering } from '../actions'
 
 class QuizCard extends React.Component {
   state = {
@@ -32,20 +32,20 @@ class QuizCard extends React.Component {
     this.toggleView()
     if (answering === (count - 1)) {
       this.setState({ quizComplete: true })
-      this.props.dispatch(quizComplete(viewing, scoreIncrement))
+      this.props.quizComplete(viewing, scoreIncrement)
     } else {
-      this.props.dispatch(nextCard(viewing, scoreIncrement))
+      this.props.nextCard(viewing, scoreIncrement)
     }
   }
   restartQuiz = () => {
     const { viewing } = this.props.state
-    this.props.dispatch(initAnswering(viewing))
+    this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
   }
   quizHome = () => {
     const { viewing } = this.props.state
-    this.props.dispatch(initAnswering(viewing))
+    this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
     this.props.navigation.navigate('QuizStart')
@@ -103,4 +103,12 @@ function mapStateToProps(state) {
   return { state }
 }
 
-export default connect(mapStateToProps)(QuizCard)
+function mapDispatchToProps(dispatch) {
+  return {
+    initAnswering: (viewing) => dispatch(initAnswering(viewing)),
+    nextCard: (viewing, scoreIncrement) => dispatch(nextCard(viewing, scoreIncrement)),
+    quizComplete: (viewing, scoreIncrement) => dispatch(quizComplete(viewing, scoreIncrement))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizCard)

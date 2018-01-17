@@ -9,11 +9,11 @@ import { addDeck, initAnswering } from '../actions'
 
 class QuizStart extends React.Component {
   onAddCard = () => {
-    this.props.dispatch(addDeck(this.props.title))
+    this.props.addDeck(this.props.title)
     this.props.navigation.navigate('AddCard')
   }
   onStartQuiz = () => {
-    this.props.dispatch(initAnswering(this.props.title))
+    this.props.initAnswering(this.props.title)
     this.props.navigation.navigate('QuizCard')
   }
   render() {
@@ -44,4 +44,11 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(QuizStart)
+function mapDispatchToProps(dispatch) {
+  return {
+    addDeck: (title) => dispatch(addDeck(title)),
+    initAnswering: (title) => dispatch(initAnswering(title)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizStart)

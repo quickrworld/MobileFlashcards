@@ -8,15 +8,6 @@ import {
 } from 'react-native'
 import { addCard } from '../actions'
 
-// function SubmitBtn ({ onPress }) {
-//   return (
-//     <TouchableOpacity
-//       onPress={onPress}>
-//       <Text>Submit</Text>
-//     </TouchableOpacity>
-//   )
-// }
-
 class AddCard extends Component {
   state = { question: '', answer: ''}
   changeQuestionText = (value) => {
@@ -28,7 +19,7 @@ class AddCard extends Component {
   submit = () => {
     const title = this.props.state.editing
     const { question, answer } = this.state
-    this.props.dispatch(addCard(title, question, answer))
+    this.props.addCard(title, question, answer)
     this.setState({ question: '', answer: '' })
   }
   render() {
@@ -62,4 +53,10 @@ function mapStateToProps(state) {
   return { state }
 }
 
-export default connect(mapStateToProps)(AddCard)
+function mapDispatchToProps(dispatch) {
+  return {
+    addCard: (title, question, answer) => dispatch(addCard(title, question, answer)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCard)

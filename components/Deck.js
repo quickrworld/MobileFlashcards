@@ -10,7 +10,7 @@ import { quizStart } from '../actions/index'
 
 class Deck extends React.Component {
   onPress = () => {
-    this.props.dispatch(quizStart(this.props.title))
+    this.props.quizStart(this.props.title)
     this.props.navigation.navigate('QuizStart')
   }
   render() {
@@ -44,5 +44,17 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect()(Deck)
+function mapStateToProps(state) {
+  return {
+    state
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    quizStart: (title) => dispatch(quizStart(title))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deck)
 
