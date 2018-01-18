@@ -10,14 +10,6 @@ import { submitDeck } from '../utils/api'
 import { connect } from 'react-redux'
 import { addDeck } from '../actions'
 
-function SubmitBtn ({ onPress }) {
-  return (
-    <TouchableOpacity
-      onPress={onPress}>
-      <Text>Submit</Text>
-    </TouchableOpacity>
-  )
-}
 class AddDeck extends Component {
   constructor() {
     super()
@@ -48,7 +40,10 @@ class AddDeck extends Component {
           value={title}
           placeholder={'Title'}
           onChangeText={(value) => this.changeText(value)}/>
-        <SubmitBtn onPress={this.submit}/>
+        <TouchableOpacity
+          onPress={this.submit}>
+          <Text>Submit</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     )
   }
