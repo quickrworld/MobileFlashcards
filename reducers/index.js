@@ -9,16 +9,16 @@ import {
 
 function decks(state = {}, action) {
   const { cards, decks, title, question, answer, increment } = action
-
   switch (action.type) {
     case RECEIVE_DECKS:
-      return {
+      const result = {
         ...state,
         decks: {
           ...state.decks,
           ...decks
         },
       }
+      return result
     case ADD_DECK:
       if (state.decks[title]) {
         return {

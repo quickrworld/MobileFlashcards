@@ -3,8 +3,8 @@ import { View } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import AddQuiz from './components/AddQuiz'
 import Main from './components/Main'
-import DeckList from './components/DeckList'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
 
@@ -22,10 +22,15 @@ const Tabs = TabNavigator({
     }
   }
 })
+
 export default class App extends React.Component {
   render() {
+    const store = createStore(
+      reducer,
+      applyMiddleware(thunk),
+    )
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{flex:1}}>
           <Tabs />
         </View>
@@ -33,3 +38,6 @@ export default class App extends React.Component {
     )
   }
 }
+
+
+
