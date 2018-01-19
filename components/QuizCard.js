@@ -3,16 +3,32 @@ import {
   Text,
   View,
   TouchableOpacity,
+  StyleSheet,
+  Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { nextCard } from '../actions/index'
 import { quizComplete } from '../actions/index'
 import { initAnswering } from '../actions'
+import {lightPurp, purple, white} from '../utils/colors'
 
 class QuizCard extends React.Component {
+  handleDimensionsChange = ({ window }) => {
+    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+  }
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.handleDimensionsChange)
+    // Also set the correct orientation at mount time. No change event is fired here.
+    const {height, width} = Dimensions.get('window')
+    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+  }
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.handleDimensionsChange)
+  }
   state = {
     showAnswer: false,
     quizComplete: false,
+    orientation: 'portrait',
   }
   toggleView = () => {
     this.setState((state) => ({
@@ -59,45 +75,158 @@ class QuizCard extends React.Component {
     const answer = deck.cards[deck.answering].answer
     const score = this.props.state.decks[viewing].score || 0
     if(this.state.quizComplete) {
-      return (<View>
-        <Text>{viewing}</Text>
-        <Text>Score: {score} / {count}</Text>
-        {score === count && (<Text>All correct!</Text>)}
-        <TouchableOpacity onPress={this.restartQuiz}>
-          <Text>Restart</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={this.quizHome}>
-          <Text>Quiz Home</Text>
-        </TouchableOpacity>
-      </View>)
+      return (
+        <View style={styles.mainContainer}>
+          <View style={styles.cardContainer}>
+            <Text style={styles.cardTitle}>{viewing}</Text>
+            <Text style={styles.cardTitle}>Score: {score} / {count}</Text>
+            {score === count && (<Text style={styles.cardTitle}>All correct!</Text>)}
+            {score < count && (<Text style={styles.cardSubtitle}>Needs more practice</Text>)}
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.restartQuiz}>
+              <Text style={styles.buttonText}>Restart</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.quizHome}>
+              <Text style={styles.buttonText}>Quiz Home</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )
     }
-    return (<View>
-      <Text>{viewing}</Text>
-      <Text>{answering + 1}/{count}</Text>
-      <Text>Score: {score}</Text>
-      {!this.state.showAnswer &&
-      <Text>{question}</Text>}
-      {this.state.showAnswer &&
-      <Text>{answer}</Text>}
-      {!this.state.showAnswer &&
-      <TouchableOpacity onPress={this.toggleView}>
-        <Text>Answer</Text>
-      </TouchableOpacity>}
-      {this.state.showAnswer &&
-      <TouchableOpacity onPress={this.toggleView}>
-        <Text>Question</Text>
-      </TouchableOpacity>}
-      {this.state.showAnswer &&
-      <TouchableOpacity onPress={this.markCorrect}>
-        <Text>Correct</Text>
-      </TouchableOpacity>}
-      {this.state.showAnswer &&
-      <TouchableOpacity onPress={this.markIncorrect}>
-        <Text>Incorrect</Text>
-      </TouchableOpacity>}
-    </View>)
+    return (
+      <View style={styles.mainContainer}>
+        <View style={[styles.cardContainer]}>
+          <View style={styles.statsContainer}>
+            <Text style={[styles.location, {width:'50%'}]}>Question {answering + 1} of {count}</Text>
+            <Text style={[styles.location, {width:'50%', textAlign:'right'}]}>Score {score}</Text>
+          </View>
+          <Text style={styles.cardTitle}>{viewing}</Text>
+        </View>
+        {!this.state.showAnswer &&
+          <View style={styles.questionContainer}>
+            <Text style={styles.questionText}>{question}</Text>
+          </View>}
+        {this.state.showAnswer &&
+          <View style={styles.answerContainer}>
+            <Text style={styles.answerText}>{answer}</Text>
+          </View>}
+        {!this.state.showAnswer &&
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.toggleView}>
+          <Text style={styles.buttonText}>Answer</Text>
+        </TouchableOpacity>}
+        {this.state.showAnswer &&
+        <View style={{flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row'}}>
+          <TouchableOpacity
+            style={[styles.button]}
+            onPress={this.toggleView}>
+            <Text style={[styles.buttonText]}>Question</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, {backgroundColor: 'green'}]}
+            onPress={this.markCorrect}>
+            <Text style={[styles.buttonText]}>Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, {backgroundColor: 'red'}]}
+            onPress={this.markIncorrect}>
+            <Text style={[styles.buttonText]}>Incorrect</Text>
+          </TouchableOpacity>
+        </View>}
+      </View>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  cardContainer: {
+    borderWidth: 1,
+    borderColor: lightPurp,
+    padding: 5,
+    margin: 5,
+    marginTop: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '96%',
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    padding: 5,
+  },
+  questionContainer: {
+    borderWidth: 1,
+    borderColor: lightPurp,
+    padding: 5,
+    margin: 10,
+    marginTop: 5,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '96%',
+  },
+  questionText: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  answerContainer: {
+    borderWidth: 1,
+    borderColor: lightPurp,
+    padding: 5,
+    margin: 10,
+    marginTop: 5,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '96%',
+  },
+  answerText: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  cardTitle: {
+    color: purple,
+    fontSize: 20,
+    padding: 10,
+    textAlign: 'center',
+  },
+  cardSubtitle: {
+    color: lightPurp,
+    fontSize: 14,
+    padding: 10,
+    textAlign: 'center',
+  },
+  buttonText: {
+    color: white,
+    padding: 8,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  button: {
+    borderColor: white,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 4,
+    margin: 8,
+    backgroundColor: lightPurp,
+  },
+  buttonPanel: {
+    flexDirection: 'column',
+  },
+})
 
 function mapStateToProps(state) {
   return { state }

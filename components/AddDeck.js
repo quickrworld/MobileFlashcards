@@ -4,10 +4,11 @@ import {
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, StyleSheet
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, submitDeck } from '../actions'
+import {lightPurp, purple, white} from '../utils/colors'
 
 class AddDeck extends Component {
   constructor() {
@@ -29,24 +30,83 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <KeyboardAvoidingView style={{flex:1}} behavior={'padding'}>
+      <KeyboardAvoidingView style={styles.mainContainer} behavior={'padding'}>
         <View>
-          <Text>
+          <Text style={styles.cardTitle}>
             What is the title of your Deck?
           </Text>
         </View>
-        <TextInput
-          value={title}
-          placeholder={'Title'}
-          onChangeText={(value) => this.changeText(value)}/>
+        <View style={styles.inputPanel}>
+          <TextInput
+            multiline={true}
+            style={styles.input}
+            value={title}
+            placeholder={'Title'}
+            onChangeText={(value) => this.changeText(value)}/>
+        </View>
         <TouchableOpacity
+          style={styles.button}
           onPress={this.submit}>
-          <Text>Submit</Text>
+          <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  cardContainer: {
+    borderWidth: 1,
+    borderColor: lightPurp,
+    padding: 10,
+    margin: 10,
+    marginTop: 20,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '90%',
+  },
+  cardTitle: {
+    color: purple,
+    fontSize: 40,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  cardSubtitle: {
+    color: lightPurp,
+    fontSize: 14,
+    padding: 10,
+  },
+  buttonText: {
+    color: white,
+    padding: 8,
+    paddingLeft: 20,
+    paddingRight: 20,
+    fontSize: 18,
+  },
+  button: {
+    borderColor: white,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 4,
+    margin: 8,
+    backgroundColor: lightPurp,
+  },
+  inputPanel: {
+    width: '90%',
+    padding: 10,
+  },
+  input: {
+    padding: 10,
+  },
+})
 
 function mapStateToProps(state) {
   return { state }

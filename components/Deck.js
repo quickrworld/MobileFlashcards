@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { quizStart } from '../actions/index'
+import { lightPurp, purple, } from '../utils/colors'
 
 class Deck extends React.Component {
   onPress = () => {
@@ -31,7 +32,8 @@ const styles = StyleSheet.create({
   deckContainer: {
     padding: 5,
     paddingTop: 20,
-    borderWidth: 1,
+    borderTopWidth: 0,
+    borderBottomWidth: 1,
     borderColor: 'lightgray',
     height: 100,
     justifyContent: 'center',
@@ -39,11 +41,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    color: purple,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   subtitle: {
     fontSize: 16,
     textAlign: 'center',
     paddingTop: 16,
+    color: lightPurp,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 

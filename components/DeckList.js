@@ -8,7 +8,8 @@ import { lightPurp, white, blue, } from '../utils/colors'
 
 function EmptyListScreen({submitDecks}) {
   return (
-    <View style={styles.container}>
+    <View style={styles.messageContainer}>
+      <Text style={styles.heading}>This screen displays available decks</Text>
       <Text style={styles.heading}>There are no decks available</Text>
       <Text style={styles.message}>Add decks using the NEW DECK tab</Text>
       <Text style={styles.message}>You can also install example decks</Text>
@@ -51,36 +52,43 @@ class DeckList extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container : {
-    flex: 1,
+  messageContainer : {
     flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',
     backgroundColor: blue,
+    borderWidth: 1,
+    borderColor: lightPurp,
+    borderRadius: 8,
+    padding: 10,
+    margin: 20,
   },
   heading : {
     color: white,
     padding: 10,
-    fontSize: 18,
+    fontSize: 14,
+    textAlign: 'center',
   },
   message: {
     color: white,
     padding: 10,
     paddingBottom: 25,
-    fontSize: 18,
+    fontSize: 14,
+    textAlign: 'center',
   },
   buttonText: {
     color: white,
     padding: 4,
     paddingLeft: 6,
     paddingRight: 6,
-    fontSize: 20,
+    fontSize: 16,
   },
   button: {
     borderColor: white,
     borderWidth: 1,
     borderRadius: 8,
     padding: 4,
+    marginBottom: 8,
   },
 })
 
