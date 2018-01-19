@@ -1,26 +1,76 @@
 import {
-  RECEIVE_DECKS,
+  // DEFAULT_DECKS,
   ADD_DECK,
   ADD_CARD,
   QUIZ_START,
   INIT_ANSWERING,
-  NEXT_CARD, QUIZ_COMPLETE
+  NEXT_CARD,
+  QUIZ_COMPLETE,
+  FETCH_DECKS_REQUEST,
+  FETCH_DECKS_SUCCESS,
+  FETCH_DECKS_FAILURE,
+  SUBMIT_DECK_REQUEST,
+  SUBMIT_DECK_SUCCESS,
+  SUBMIT_DECK_FAILURE,
+  SUBMIT_DECKS_REQUEST,
+  SUBMIT_DECKS_SUCCESS,
+  SUBMIT_DECKS_FAILURE,
 } from '../actions'
 
 function decks(state = {}, action) {
   const { cards, decks, title, question, answer, increment } = action
   switch (action.type) {
-    case RECEIVE_DECKS:
-      const result = {
+    case FETCH_DECKS_REQUEST:
+      return {
+        ...state,
+        syncing: true,
+      }
+    case FETCH_DECKS_SUCCESS:
+      return {
         ...state,
         decks: {
           ...state.decks,
-          ...decks
+          ...decks,
         },
+        syncing: false,
       }
-      return result
+    case FETCH_DECKS_FAILURE:
+      return {
+        ...state,
+        syncing: false,
+      }
+    case SUBMIT_DECK_REQUEST: // Should we merge SUBMIT and ADD ops?
+      return {
+        ...state,
+        syncing: true,
+      }
+    case SUBMIT_DECK_SUCCESS:
+      return {
+        ...state,
+        syncing: false,
+      }
+    case SUBMIT_DECK_FAILURE:
+      return {
+        ...state,
+        syncing: false,
+      }
+    case SUBMIT_DECKS_REQUEST: // Should we merge SUBMIT and ADD ops?
+      return {
+        ...state,
+        syncing: true,
+      }
+    case SUBMIT_DECKS_SUCCESS:
+      return {
+        ...state,
+        syncing: false,
+      }
+    case SUBMIT_DECKS_FAILURE:
+      return {
+        ...state,
+        syncing: false,
+      }
     case ADD_DECK:
-      if (state.decks[title]) {
+      if (state.decks && state.decks[title]) {
         return {
           ...state,
           editing: title,
@@ -31,9 +81,9 @@ function decks(state = {}, action) {
         ...state,
         decks: {
           ...state.decks,
-          [title]: { title: title, cards: cards }
+          [title]: { title: title, cards: cards || [] }
         },
-        editing: title, // why is this still required?
+        editing: title, // (why) is this still required?
         viewing: title, // we plan to navigate to the home of the quiz just added
       }
     case INIT_ANSWERING:
@@ -57,13 +107,12 @@ function decks(state = {}, action) {
           newDecks[key].cards = cards
         }
       })
-      const value = {
+      return {
         ...state,
         decks: {
           ...newDecks,
         },
       }
-      return value
     case QUIZ_START:
       return {
         ...state,
@@ -76,9 +125,9 @@ function decks(state = {}, action) {
           ...state.decks,
           [title]: {
             ...state.decks[title],
-            answering: state.decks[title].answering + 1, // TODO: check limit
+            answering: state.decks[title].answering + 1,
             score: state.decks[title].score
-              ? state.decks[title].score + increment
+              ? state.decks[title].score + increment // TODO: check limit
               : increment
           }
         }
@@ -90,9 +139,8 @@ function decks(state = {}, action) {
           ...state.decks,
           [title]: {
             ...state.decks[title],
-            // answering: state.decks[title].answering + 1, // TODO: check limit
             score: state.decks[title].score
-              ? state.decks[title].score + increment
+              ? state.decks[title].score + increment // TODO: check limit
               : increment
           }
         }

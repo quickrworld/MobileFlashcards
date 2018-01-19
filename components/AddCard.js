@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native'
-import { addCard } from '../actions'
+import {addCard, submitDeck} from '../actions'
 
 class AddCard extends Component {
   state = { question: '', answer: ''}
@@ -20,6 +20,7 @@ class AddCard extends Component {
     const title = this.props.state.editing
     const { question, answer } = this.state
     this.props.addCard(title, question, answer)
+    this.props.submitDeck(title, this.props.state.decks[title])
     this.setState({ question: '', answer: '' })
   }
   render() {
@@ -56,6 +57,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     addCard: (title, question, answer) => dispatch(addCard(title, question, answer)),
+    submitDeck: (title, cards=[]) => dispatch(submitDeck(title, cards))
   }
 }
 

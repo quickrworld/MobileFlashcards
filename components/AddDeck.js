@@ -6,9 +6,8 @@ import {
   TextInput,
   TouchableOpacity
 } from 'react-native'
-import { submitDeck } from '../utils/api'
 import { connect } from 'react-redux'
-import { addDeck } from '../actions'
+import { addDeck, submitDeck } from '../actions'
 
 class AddDeck extends Component {
   constructor() {
@@ -24,7 +23,7 @@ class AddDeck extends Component {
     const { title } = this.state
     this.props.addDeck(title)
     this.setState({title: ''})
-    submitDeck({ title })
+    this.props.submitDeck(title)
     this.props.navigation.navigate('QuizStart')
   }
   render() {
@@ -55,7 +54,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addDeck: (title) => dispatch(addDeck(title))
+    addDeck: (title) => dispatch(addDeck(title)),
+    submitDeck: (title, cards=[]) => dispatch(submitDeck(title, cards)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AddDeck)

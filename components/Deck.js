@@ -30,17 +30,20 @@ class Deck extends React.Component {
 const styles = StyleSheet.create({
   deckContainer: {
     padding: 5,
+    paddingTop: 20,
     borderWidth: 1,
     borderColor: 'lightgray',
-    height: 120,
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    fontSize: 40,
+    fontSize: 24,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 16,
+    textAlign: 'center',
+    paddingTop: 16,
   },
 })
 
