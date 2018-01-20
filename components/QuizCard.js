@@ -11,6 +11,10 @@ import { nextCard } from '../actions/index'
 import { quizComplete } from '../actions/index'
 import { initAnswering } from '../actions'
 import {lightPurp, purple, white} from '../utils/colors'
+import {
+  clearLocalNotification,
+  setLocalNotification,
+} from '../utils/helpers'
 
 class QuizCard extends React.Component {
   state = {
@@ -49,6 +53,8 @@ class QuizCard extends React.Component {
     if (answering === (count - 1)) {
       this.setState({ quizComplete: true })
       this.props.quizComplete(viewing, scoreIncrement)
+      clearLocalNotification()
+        .then(setLocalNotification())
     } else {
       this.props.nextCard(viewing, scoreIncrement)
     }
