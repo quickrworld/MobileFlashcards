@@ -67,9 +67,9 @@ class AddDeck extends Component {
               placeholder={'Title'}
               onChangeText={(value) => this.changeText(value)}/>
           </View>
-          <View>
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button]}
               onPress={this.submit}
               disabled={title.trim().length === 0}>
               <Text style={styles.buttonText}>Submit</Text>
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 4,
     margin: 8,
+    width: 89,
     backgroundColor: lightPurp,
   },
   inputPanel: {
