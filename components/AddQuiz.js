@@ -9,6 +9,9 @@ import QuizCard from './QuizCard'
 const Stack = StackNavigator({
   Deck: {
     screen: AddDeck,
+    navigationOptions: {
+      title: 'New Deck',
+    },
   },
   AddCard: {
     screen: AddCard,
