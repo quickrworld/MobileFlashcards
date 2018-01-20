@@ -99,9 +99,10 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     borderWidth: 1,
+    borderColor: lightPurp,
     padding: 4,
-    margin: 4,
-    marginTop: 8,
+    margin: 2,
+    marginTop: 2,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',

@@ -6,13 +6,33 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
+  StyleSheet, Dimensions,
 } from 'react-native'
 import {addCard, submitDeck} from '../actions'
 import {lightPurp, purple, white} from '../utils/colors'
 
 class AddCard extends Component {
-  state = { question: '', answer: ''}
+  state = {
+    question: '',
+    answer: '',
+    orientation: 'portrait',
+  }
+  handleDimensionsChange = ({ window }) => {
+    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: window.width})
+    this.setState({windowHeight: window.height})
+  }
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.handleDimensionsChange)
+    // Set the correct orientation at first mount. (No change event is fired).
+    const {height, width} = Dimensions.get('window')
+    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: width})
+    this.setState({windowHeight: height})
+  }
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.handleDimensionsChange)
+  }
   changeQuestionText = (value) => {
     this.setState({question: value})
   }
@@ -33,29 +53,45 @@ class AddCard extends Component {
     const { question, answer } = this.state
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.mainContainer}>
-        <View style={styles.cardContainer}>
+        <View style={[styles.cardContainer,{flex:1}]}>
           <Text style={styles.cardTitle}>{title}</Text>
           <Text style={styles.cardSubtitle}>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
         </View>
-        <View style={styles.inputPanel}>
-          <TextInput
-            style={styles.input}
-            placeholder={'Question'}
-            value={question}
-            onChangeText={(value) => this.changeQuestionText(value)}/>
-          <TextInput
-            style={styles.input}
-            placeholder={'Answer'}
-            value={answer}
-            onChangeText={(value) => this.changeAnswerText(value)}/>
+        <View style={{
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
+          flexDirection: this.state.orientation === 'portrait'
+            ? 'column'
+            : 'row'
+        }}>
+          <View style={styles.inputPanel}>
+            <TextInput
+              style={[styles.input, {
+                width: this.state.orientation === 'portrait'
+                  ? this.state.windowWidth - 40
+                  : this.state.windowWidth - 140
+              }]}
+              placeholder={'Question'}
+              value={question}
+              onChangeText={(value) => this.changeQuestionText(value)}/>
+            <TextInput
+              style={[styles.input, {
+                width: this.state.orientation === 'portrait'
+                  ? this.state.windowWidth - 40
+                  : this.state.windowWidth - 140
+              }]}
+              placeholder={'Answer'}
+              value={answer}
+              onChangeText={(value) => this.changeAnswerText(value)}/>
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.submit}
+            disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.submit}
-          disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
-        <View style={{height: 40}}/>
+        <View style={{height: 60}}/>
       </KeyboardAvoidingView>
     )
   }
@@ -70,9 +106,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 5,
-    margin: 5,
-    marginTop: 10,
+    padding: 4,
+    margin: 2,
+    marginTop: 2,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -80,14 +116,14 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     color: purple,
-    fontSize: 20,
-    padding: 10,
+    fontSize: 16,
+    padding: 4,
     textAlign: 'center',
   },
   cardSubtitle: {
     color: lightPurp,
     fontSize: 14,
-    padding: 10,
+    padding: 5,
     textAlign: 'center',
   },
   buttonText: {
@@ -106,11 +142,11 @@ const styles = StyleSheet.create({
     backgroundColor: lightPurp,
   },
   inputPanel: {
-    width: '96%',
-    padding: 10,
+    padding: 4,
   },
   input: {
-    padding: 10,
+    padding: 4,
+    margin: 4,
   },
 })
 
