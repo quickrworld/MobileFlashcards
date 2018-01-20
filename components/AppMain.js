@@ -19,6 +19,7 @@ const Tabs = TabNavigator({
     screen: AddQuiz,
     navigationOptions: {
       title: 'NEW DECK',
+      header: ''
     }
   }
 })

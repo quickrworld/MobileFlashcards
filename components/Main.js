@@ -9,15 +9,27 @@ import QuizCard from './QuizCard'
 const StackMain = StackNavigator({
   DeckList: {
     screen: DeckList,
+    navigationOptions: {
+      title: 'Home',
+    },
   },
   QuizStart: {
     screen: QuizStart,
+    navigationOptions: {
+      title: 'Quiz'
+    },
   },
   AddCard: {
     screen: AddCard,
+    navigationOptions: {
+      title: 'New Card'
+    }
   },
   QuizCard: {
     screen: QuizCard,
+    navigationOptions: {
+      title: 'Question',
+    },
   }
 })
 class Main extends Component {
