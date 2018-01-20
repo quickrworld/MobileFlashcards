@@ -85,7 +85,11 @@ class AddCard extends Component {
               onChangeText={(value) => this.changeAnswerText(value)}/>
           </View>
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button, {
+              backgroundColor: (!(answer.trim().length > 0) || !(question.trim().length > 0))
+                ? 'gray'
+                : lightPurp
+            }]}
             onPress={this.submit}
             disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
             <Text style={styles.buttonText}>Submit</Text>

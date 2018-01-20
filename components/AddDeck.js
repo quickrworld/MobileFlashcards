@@ -78,7 +78,11 @@ class AddDeck extends Component {
             alignItems: 'center',
             justifyContent: 'center'}}>
             <TouchableOpacity
-              style={[styles.button]}
+              style={[styles.button, {
+                backgroundColor: title.trim().length === 0
+                  ? 'gray'
+                  : lightPurp
+              }]}
               onPress={this.submit}
               disabled={title.trim().length === 0}>
               <Text style={[styles.buttonText]}>Submit</Text>
