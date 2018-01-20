@@ -49,14 +49,13 @@ class AddCard extends Component {
             value={answer}
             onChangeText={(value) => this.changeAnswerText(value)}/>
         </View>
-        <View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this.submit}
-            disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.submit}
+          disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+        <View style={{height: 40}}/>
       </KeyboardAvoidingView>
     )
   }
@@ -71,13 +70,13 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 10,
-    margin: 10,
-    marginTop: 20,
+    padding: 5,
+    margin: 5,
+    marginTop: 10,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%',
+    width: '96%',
   },
   cardTitle: {
     color: purple,
@@ -94,8 +93,8 @@ const styles = StyleSheet.create({
   buttonText: {
     color: white,
     padding: 8,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     fontSize: 18,
   },
   button: {
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: lightPurp,
   },
   inputPanel: {
-    width: '90%',
+    width: '96%',
     padding: 10,
   },
   input: {

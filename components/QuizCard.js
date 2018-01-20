@@ -13,6 +13,11 @@ import { initAnswering } from '../actions'
 import {lightPurp, purple, white} from '../utils/colors'
 
 class QuizCard extends React.Component {
+  state = {
+    showAnswer: false,
+    quizComplete: false,
+    orientation: 'portrait',
+  }
   handleDimensionsChange = ({ window }) => {
     this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
   }
@@ -24,11 +29,6 @@ class QuizCard extends React.Component {
   }
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.handleDimensionsChange)
-  }
-  state = {
-    showAnswer: false,
-    quizComplete: false,
-    orientation: 'portrait',
   }
   toggleView = () => {
     this.setState((state) => ({
@@ -83,7 +83,7 @@ class QuizCard extends React.Component {
             {score === count && (<Text style={styles.cardTitle}>All correct!</Text>)}
             {score < count && (<Text style={styles.cardSubtitle}>Needs more practice</Text>)}
           </View>
-          <View>
+          <View style={{flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row'}}>
             <TouchableOpacity
               style={styles.button}
               onPress={this.restartQuiz}>

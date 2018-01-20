@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import {
-  KeyboardAvoidingView,
   Text,
   View,
   TextInput,
-  TouchableOpacity, StyleSheet
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  KeyboardAvoidingView,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, submitDeck } from '../actions'
@@ -14,8 +16,25 @@ class AddDeck extends Component {
   constructor() {
     super()
     this.state = {
-      title: ''
+      title: '',
+      orientation: 'portrait',
     }
+  }
+  handleDimensionsChange = ({ window }) => {
+    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: window.width})
+    this.setState({windowHeight: window.height})
+  }
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.handleDimensionsChange)
+    // Set the correct orientation at first mount. (No change event is fired).
+    const {height, width} = Dimensions.get('window')
+    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: width})
+    this.setState({windowHeight: height})
+  }
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.handleDimensionsChange)
   }
   changeText = (value) => {
     this.setState({title: value})
@@ -30,25 +49,34 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <KeyboardAvoidingView style={styles.mainContainer} behavior={'padding'}>
-        <View>
-          <Text style={styles.cardTitle}>
+      <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
+        <View style={styles.cardContainer}>
+          <Text style={[styles.cardTitle]}>
             What is the title of your Deck?
           </Text>
         </View>
-        <View style={styles.inputPanel}>
-          <TextInput
-            multiline={true}
-            style={styles.input}
-            value={title}
-            placeholder={'Title'}
-            onChangeText={(value) => this.changeText(value)}/>
+        <View style={{
+          flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row',
+        }}>
+          <View style={[styles.inputPanel, {
+              width: this.state.orientation === 'portrait' ? '96%' : '75%',
+            }]}>
+            <TextInput
+              style={[styles.input, {width: this.state.windowWidth - 20}]}
+              value={title}
+              placeholder={'Title'}
+              onChangeText={(value) => this.changeText(value)}/>
+          </View>
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={this.submit}
+              disabled={title.trim().length === 0}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={this.submit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </TouchableOpacity>
+        <View style={{height:40}}/>
       </KeyboardAvoidingView>
     )
   }
@@ -63,32 +91,31 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 10,
-    margin: 10,
-    marginTop: 20,
+    padding: 5,
+    margin: 5,
+    marginTop: 10,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    width: '90%',
+    width: '96%',
   },
   cardTitle: {
     color: purple,
-    fontSize: 40,
+    fontSize: 20,
     padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
     textAlign: 'center',
   },
   cardSubtitle: {
     color: lightPurp,
     fontSize: 14,
     padding: 10,
+    textAlign: 'center',
   },
   buttonText: {
     color: white,
     padding: 8,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     fontSize: 18,
   },
   button: {
@@ -100,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: lightPurp,
   },
   inputPanel: {
-    width: '90%',
+    width: '96%',
     padding: 10,
   },
   input: {

@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: lightPurp,
     borderRadius: 8,
-    padding: 10,
-    margin: 20,
+    padding: 5,
+    margin: 10,
   },
   heading : {
     color: white,

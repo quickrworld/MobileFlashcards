@@ -4,12 +4,16 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, initAnswering } from '../actions'
-import {white, purple, lightPurp, blue, gray, orange, pink, red} from '../utils/colors'
+import { white, purple, lightPurp } from '../utils/colors'
 
 class QuizStart extends React.Component {
+  state = {
+    orientation: 'portrait',
+  }
   onAddCard = () => {
     this.props.addDeck(this.props.title)
     this.props.navigation.navigate('AddCard')
@@ -17,6 +21,18 @@ class QuizStart extends React.Component {
   onStartQuiz = () => {
     this.props.initAnswering(this.props.title)
     this.props.navigation.navigate('QuizCard')
+  }
+  handleDimensionsChange = ({ window }) => {
+    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+  }
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.handleDimensionsChange)
+    // Also set the correct orientation at mount time. No change event is fired here.
+    const {height, width} = Dimensions.get('window')
+    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+  }
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.handleDimensionsChange)
   }
   render() {
     const { title, count } = this.props
@@ -26,7 +42,7 @@ class QuizStart extends React.Component {
         <Text style={styles.cardTitle}>{title}</Text>
         <Text style={styles.cardSubtitle}>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
         </View>
-        <View>
+        <View style={{flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row'}}>
           <TouchableOpacity style={styles.button} onPress={this.onAddCard}>
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>
@@ -50,9 +66,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 10,
-    margin: 10,
-    marginTop: 20,
+    padding: 5,
+    margin: 5,
+    marginTop: 10,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -61,13 +77,13 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: purple,
     fontSize: 20,
-    padding: 10,
+    padding: 5,
     textAlign: 'center',
   },
   cardSubtitle: {
     color: lightPurp,
     fontSize: 14,
-    padding: 10,
+    padding: 5,
     textAlign: 'center',
   },
   buttonText: {
