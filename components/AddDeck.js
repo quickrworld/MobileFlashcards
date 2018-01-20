@@ -49,34 +49,43 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state
     return (
-      <KeyboardAvoidingView behavior='padding' style={styles.mainContainer}>
-        <View style={styles.cardContainer}>
+      <KeyboardAvoidingView
+        behavior='padding'
+        style={styles.mainContainer}>
+        <View style={[styles.cardContainer, {flex:1}]}>
           <Text style={[styles.cardTitle]}>
             What is the title of your Deck?
           </Text>
         </View>
         <View style={{
-          flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row',
-        }}>
+          flexDirection: this.state.orientation === 'portrait'
+            ? 'column'
+            : 'row',}}>
           <View style={[styles.inputPanel, {
-              width: this.state.orientation === 'portrait' ? '96%' : '75%',
+              width: this.state.orientation === 'portrait'
+                ? this.state.windowWidth - 20
+                : this.state.windowWidth - 120,
             }]}>
             <TextInput
-              style={[styles.input, {width: this.state.windowWidth - 20}]}
+              style={[styles.input, {
+                width: this.state.windowWidth - 20,
+              }]}
               value={title}
               placeholder={'Title'}
               onChangeText={(value) => this.changeText(value)}/>
           </View>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View style={{
+            alignItems: 'center',
+            justifyContent: 'center'}}>
             <TouchableOpacity
               style={[styles.button]}
               onPress={this.submit}
               disabled={title.trim().length === 0}>
-              <Text style={styles.buttonText}>Submit</Text>
+              <Text style={[styles.buttonText]}>Submit</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{height:40}}/>
+        <View style={{height:60}}/>
       </KeyboardAvoidingView>
     )
   }
@@ -90,10 +99,9 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     borderWidth: 1,
-    borderColor: lightPurp,
-    padding: 5,
-    margin: 5,
-    marginTop: 10,
+    padding: 4,
+    margin: 4,
+    marginTop: 8,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -102,7 +110,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: purple,
     fontSize: 20,
-    padding: 10,
+    padding: 4,
     textAlign: 'center',
   },
   cardSubtitle: {
@@ -113,7 +121,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: white,
-    padding: 8,
+    padding: 4,
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 18,
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     padding: 4,
-    margin: 8,
+    margin: 4,
     width: 89,
     backgroundColor: lightPurp,
   },
