@@ -9,6 +9,7 @@ import {
   StyleSheet,
   Dimensions,
   Keyboard,
+  Platform,
 } from 'react-native'
 import {addCard, submitDeck} from '../actions'
 import {lightPurp, purple, white} from '../utils/colors'
@@ -70,10 +71,13 @@ class AddCard extends Component {
     const { question, answer } = this.state
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.mainContainer}>
-        {(!this.state.keyboard || this.state.orientation === 'portrait') &&
+        {(!this.state.keyboard ||
+          (this.state.orientation === 'portrait' && Platform.OS === 'ios')) &&
         <View style={[styles.cardContainer]}>
           <Text style={styles.cardTitle}>{title}</Text>
-          <Text style={styles.cardSubtitle}>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
+          <Text style={styles.cardSubtitle}>
+            {count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}
+          </Text>
         </View>}
         <View style={{
           alignItems: 'flex-start',
@@ -85,7 +89,7 @@ class AddCard extends Component {
           <View style={styles.inputPanel}>
             <TextInput
               multiline={true}
-              maxHeight={35}
+              maxHeight={55}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40
@@ -96,7 +100,7 @@ class AddCard extends Component {
               onChangeText={(value) => this.changeQuestionText(value)}/>
             <TextInput
               multiline={true}
-              maxHeight={35}
+              maxHeight={55}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40

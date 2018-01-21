@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Platform,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, initAnswering } from '../actions'
@@ -42,7 +43,10 @@ class QuizStart extends React.Component {
         <Text style={styles.cardTitle}>{title}</Text>
         <Text style={styles.cardSubtitle}>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
         </View>
-        <View style={{flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row'}}>
+        <View style={{
+          flexDirection: this.state.orientation === 'portrait' && Platform.OS === 'ios'
+            ? 'column'
+            : 'row'}}>
           <TouchableOpacity style={styles.button} onPress={this.onAddCard}>
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>

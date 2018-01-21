@@ -7,6 +7,8 @@ import {
   StyleSheet,
   Dimensions,
   KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, submitDeck } from '../actions'
@@ -36,6 +38,19 @@ class AddDeck extends Component {
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.handleDimensionsChange)
   }
+  _keyboardDidShow = () => {
+    this.setState({keyboard: true})
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({keyboard: false})
+  }
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide', this._keyboardDidHide);
+  }
   changeText = (value) => {
     this.setState({title: value})
   }
@@ -52,23 +67,27 @@ class AddDeck extends Component {
       <KeyboardAvoidingView
         behavior='padding'
         style={styles.mainContainer}>
+        {(!this.state.keyboard ||
+          (this.state.orientation === 'portrait' && Platform.OS === 'ios')) &&
         <View style={[styles.cardContainer, {flex:1}]}>
           <Text style={[styles.cardTitle]}>
             What is the title of your Deck?
           </Text>
-        </View>
+        </View>}
         <View style={{
           flexDirection: this.state.orientation === 'portrait'
             ? 'column'
             : 'row',}}>
           <View style={[styles.inputPanel, {
               width: this.state.orientation === 'portrait'
-                ? this.state.windowWidth - 20
+                ? this.state.windowWidth - 40
                 : this.state.windowWidth - 120,
             }]}>
             <TextInput
               style={[styles.input, {
-                width: this.state.windowWidth - 20,
+                width: this.state.orientation === 'portrait'
+                  ? this.state.windowWidth - 40
+                  : this.state.windowWidth - 140
               }]}
               value={title}
               placeholder={'Title'}
