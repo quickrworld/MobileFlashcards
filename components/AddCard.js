@@ -88,8 +88,6 @@ class AddCard extends Component {
         }}>
           <View style={styles.inputPanel}>
             <TextInput
-              multiline={true}
-              maxHeight={55}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40
@@ -99,8 +97,6 @@ class AddCard extends Component {
               value={question}
               onChangeText={(value) => this.changeQuestionText(value)}/>
             <TextInput
-              multiline={true}
-              maxHeight={55}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40
