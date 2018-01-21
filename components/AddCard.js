@@ -6,7 +6,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet, Dimensions,
+  StyleSheet,
+  Dimensions,
+  Keyboard,
 } from 'react-native'
 import {addCard, submitDeck} from '../actions'
 import {lightPurp, purple, white} from '../utils/colors'
@@ -30,8 +32,23 @@ class AddCard extends Component {
     this.setState({windowWidth: width})
     this.setState({windowHeight: height})
   }
+  _keyboardDidShow = () => {
+    this.setState({keyboard: true})
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({keyboard: false})
+  }
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide', this._keyboardDidHide);
+  }
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.handleDimensionsChange)
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
   changeQuestionText = (value) => {
     this.setState({question: value})
@@ -53,10 +70,11 @@ class AddCard extends Component {
     const { question, answer } = this.state
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.mainContainer}>
-        <View style={[styles.cardContainer,{flex:1}]}>
+        {(!this.state.keyboard || this.state.orientation === 'portrait') &&
+        <View style={[styles.cardContainer]}>
           <Text style={styles.cardTitle}>{title}</Text>
           <Text style={styles.cardSubtitle}>{count} {(count ===  1) && 'Card'}{(count !== 1) && 'Cards'}</Text>
-        </View>
+        </View>}
         <View style={{
           alignItems: 'flex-start',
           justifyContent: 'flex-start',
@@ -66,6 +84,8 @@ class AddCard extends Component {
         }}>
           <View style={styles.inputPanel}>
             <TextInput
+              multiline={true}
+              maxHeight={35}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40
@@ -75,6 +95,8 @@ class AddCard extends Component {
               value={question}
               onChangeText={(value) => this.changeQuestionText(value)}/>
             <TextInput
+              multiline={true}
+              maxHeight={35}
               style={[styles.input, {
                 width: this.state.orientation === 'portrait'
                   ? this.state.windowWidth - 40
@@ -108,6 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   cardContainer: {
+    flex:1,
     borderWidth: 1,
     borderColor: lightPurp,
     padding: 4,
