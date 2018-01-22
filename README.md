@@ -1,4 +1,4 @@
-# Readable App
+# MobileFlashcards App
 
 To get started right away, choose an installation directory, for example, `installdir`.
 
