@@ -1,25 +1,55 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   Text,
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Dimensions,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addDeck, submitDeck } from '../actions'
-import { lightPurp, purple, white } from '../utils/colors'
-import { BaseComponent } from './BaseComponent'
+import {lightPurp, purple, white} from '../utils/colors'
 
-class AddDeck extends BaseComponent {
+class AddDeck extends Component {
   constructor() {
     super()
     this.state = {
       title: '',
       orientation: 'portrait',
     }
+  }
+  handleDimensionsChange = ({ window }) => {
+    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: window.width})
+    this.setState({windowHeight: window.height})
+  }
+  componentDidMount() {
+    Dimensions.addEventListener('change', this.handleDimensionsChange)
+    // Set the correct orientation at first mount. (No change event is fired).
+    const {height, width} = Dimensions.get('window')
+    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+    this.setState({windowWidth: width})
+    this.setState({windowHeight: height})
+  }
+  componentWillUnmount() {
+    Dimensions.removeEventListener('change', this.handleDimensionsChange)
+  }
+  _keyboardDidShow = () => {
+    this.setState({keyboard: true})
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({keyboard: false})
+  }
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow', this._keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide', this._keyboardDidHide);
   }
   changeText = (value) => {
     this.setState({title: value})
