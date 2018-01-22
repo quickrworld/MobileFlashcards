@@ -23,13 +23,16 @@ class QuizCard extends React.Component {
     orientation: 'portrait',
   }
   handleDimensionsChange = ({ window }) => {
-    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+    this.setState({
+      orientation: window.height > window.width ? 'portrait' : 'landscape'
+    })
   }
   componentDidMount() {
     Dimensions.addEventListener('change', this.handleDimensionsChange)
-    // Also set the correct orientation at mount time. No change event is fired here.
     const {height, width} = Dimensions.get('window')
-    this.setState({orientation: height > width ? 'portrait' : 'landscape' })
+    this.setState({
+      orientation: height > width ? 'portrait' : 'landscape'
+    })
   }
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.handleDimensionsChange)

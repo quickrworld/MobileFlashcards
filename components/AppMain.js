@@ -6,7 +6,6 @@ import Main from './Main'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../actions'
 import clearDecks from '../utils/helpers'
-import { lightPurp } from '../utils/colors'
 
 const Tabs = TabNavigator({
   Main: {

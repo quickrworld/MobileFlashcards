@@ -27,7 +27,6 @@ class AddCard extends Component {
   }
   componentDidMount() {
     Dimensions.addEventListener('change', this.handleDimensionsChange)
-    // Set the correct orientation at first mount. (No change event is fired).
     const {height, width} = Dimensions.get('window')
     this.setState({orientation: height > width ? 'portrait' : 'landscape' })
     this.setState({windowWidth: width})
