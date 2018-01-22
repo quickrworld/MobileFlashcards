@@ -1,5 +1,10 @@
 # MobileFlashcards App
 
+* To test the app on your phone you need to install Expo. Head to the app store and install the Expo mobile app for your device:
+
+Expo on Google Play (Android) https://play.google.com/store/apps/details?id=host.exp.exponent
+Expo on the App Store (iOS) https://itunes.apple.com/us/app/expo-client/id982107779
+
 To get started right away, choose an installation directory, for example, `installdir`.
 
 * Create the installation directory
@@ -12,7 +17,9 @@ To get started right away, choose an installation directory, for example, `insta
     - `yarn install`
     - `yarn start`
     
-* You can browse the app at `http://localhost:3000`
+* On your mac press i
+
+* An iOS simulator will 
 
 #### Note: `installdir` can be any directory where you want to install the frontend application and the API server
 #### Note: You must have write permissions in the working directory when you create `installdir`
