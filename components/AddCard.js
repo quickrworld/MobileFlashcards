@@ -109,7 +109,7 @@ class AddCard extends Component {
             style={[styles.button, {
               backgroundColor: (!(answer.trim().length > 0) || !(question.trim().length > 0))
                 ? 'gray'
-                : lightPurp
+                : lightPurp,
             }]}
             onPress={this.submit}
             disabled={!(answer.trim().length > 0) || !(question.trim().length > 0)}>
