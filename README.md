@@ -1,8 +1,8 @@
 # MobileFlashcards App
 
 * To test the app on your phone you need to install Expo. Head to the app store and install the Expo mobile app for your device:
-    - [Expo on Google Play (Android)] (https://play.google.com/store/apps/details?id=host.exp.exponent)
-    - [Expo on the App Store (iOS)] (https://itunes.apple.com/us/app/expo-client/id982107779)
+    - [Expo on Google Play (Android)](https://play.google.com/store/apps/details?id=host.exp.exponent)
+    - [Expo on the App Store (iOS)](https://itunes.apple.com/us/app/expo-client/id982107779)
 
 To get started right away, choose an installation directory, for example, `installdir`.
 
