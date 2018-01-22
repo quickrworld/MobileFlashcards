@@ -69,7 +69,7 @@ class AddDeck extends Component {
         style={styles.mainContainer}>
         {(!this.state.keyboard ||
           (this.state.orientation === 'portrait' && Platform.OS === 'ios')) &&
-        <View style={[styles.cardContainer, {flex:1}]}>
+        <View style={[styles.cardContainer]}>
           <Text style={[styles.cardTitle]}>
             What is the title of your Deck?
           </Text>
@@ -123,9 +123,9 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 4,
-    margin: 2,
-    marginTop: 2,
+    padding: 5,
+    margin: 5,
+    marginTop: 10,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
   },
   inputPanel: {
     width: '96%',
-    padding: 10,
+    padding: 4,
   },
   input: {
-    padding: 10,
+    padding: 2,
   },
 })
 

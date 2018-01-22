@@ -108,7 +108,7 @@ class QuizCard extends React.Component {
       <View style={styles.mainContainer}>
         <View style={[styles.cardContainer]}>
           <View style={styles.statsContainer}>
-            <Text style={[styles.location, {width:'50%'}]}>Question {answering + 1} of {count}</Text>
+            <Text style={[styles.location, {width:'50%'}]}>{answering + 1} of {count}</Text>
             <Text style={[styles.location, {width:'50%', textAlign:'right'}]}>Score {score}</Text>
           </View>
           <Text style={styles.cardTitle}>{viewing}</Text>
@@ -170,11 +170,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     padding: 5,
+    paddingBottom: 0,
   },
   questionContainer: {
     borderWidth: 1,
     borderColor: lightPurp,
-    padding: 5,
+    padding: 4,
     margin: 10,
     marginTop: 5,
     borderRadius: 8,
@@ -204,13 +205,14 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: purple,
     fontSize: 20,
-    padding: 10,
+    padding: 4,
+    paddingTop: 0,
     textAlign: 'center',
   },
   cardSubtitle: {
     color: lightPurp,
     fontSize: 14,
-    padding: 10,
+    padding: 5,
     textAlign: 'center',
   },
   buttonText: {
@@ -226,7 +228,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     padding: 4,
+    paddingTop: 0,
     margin: 8,
+    marginTop: 0,
     backgroundColor: lightPurp,
   },
   buttonPanel: {
