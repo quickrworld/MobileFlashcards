@@ -5,12 +5,16 @@ import DeckList from './DeckList'
 import QuizStart from './QuizStart'
 import AddCard from './AddCard'
 import QuizCard from './QuizCard'
+import SettingsButton from './SettingsButton'
 
 const StackMain = StackNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
       title: 'Home',
+      headerRight: (
+        <SettingsButton/>
+      )
     },
   },
   QuizStart: {

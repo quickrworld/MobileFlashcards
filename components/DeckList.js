@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { state }
+  const { settings, decks } = state
+  return { settings, decks, state }
 }
 
 function mapDispatchToProps(dispatch) {

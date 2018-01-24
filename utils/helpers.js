@@ -3,6 +3,8 @@ import { Notifications, Permissions } from 'expo'
 import { testing } from './phase'
 
 export const FLASHCARDS_STORAGE_KEY = 'MobileFlashcards:StorageKey:1'
+export const FLASHCARDS_SETTINGS_KEY = 'MobileFlashcards:SettingsKey:1'
+
 export const FLASHCARDS_NOTIFICATION_KEY = 'Flashcards:notifications:1'
 
 export function clearLocalNotification() {
