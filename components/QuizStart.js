@@ -8,7 +8,10 @@ import {
   Platform,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { addDeck, initAnswering } from '../actions'
+import {
+  addDeck,
+  initAnswering
+} from '../actions/decks'
 import { white, purple, lightPurp } from '../utils/colors'
 
 class QuizStart extends React.Component {
@@ -109,10 +112,10 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    title: state.viewing,
-    count: (state.decks[state.viewing] &&
-      state.decks[state.viewing].cards &&
-      state.decks[state.viewing].cards.length) || 0
+    title: state.decks.viewing,
+    count: (state.decks.decks[state.decks.viewing] &&
+      state.decks.decks[state.decks.viewing].cards &&
+      state.decks.decks[state.decks.viewing].cards.length) || 0
   }
 }
 

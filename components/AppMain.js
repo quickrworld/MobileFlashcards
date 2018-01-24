@@ -4,7 +4,9 @@ import { TabNavigator } from 'react-navigation'
 import AddQuiz from './AddQuiz'
 import Main from './Main'
 import { connect } from 'react-redux'
-import { fetchDecks } from '../actions'
+import {
+  fetchDecks
+} from '../actions/decks'
 import clearDecks from '../utils/helpers'
 
 const Tabs = TabNavigator({

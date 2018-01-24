@@ -11,7 +11,10 @@ import {
   Keyboard,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { addDeck, submitDeck } from '../actions'
+import {
+  addDeck,
+  submitDeck
+} from '../actions/decks'
 import {lightPurp, purple, white} from '../utils/colors'
 
 class AddDeck extends Component {

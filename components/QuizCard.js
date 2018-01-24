@@ -7,9 +7,11 @@ import {
   Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { nextCard } from '../actions/index'
-import { quizComplete } from '../actions/index'
-import { initAnswering } from '../actions'
+import {
+  nextCard,
+  quizComplete,
+  initAnswering,
+} from '../actions/decks'
 import {lightPurp, purple, white} from '../utils/colors'
 import {
   clearLocalNotification,
@@ -49,9 +51,9 @@ class QuizCard extends React.Component {
     this.moveNext(0)
   }
   moveNext = (scoreIncrement) => {
-    const { viewing } = this.props.state
-    const count = this.props.state.decks[viewing].cards.length
-    const answering = this.props.state.decks[viewing].answering
+    const { viewing } = this.props.state.decks
+    const count = this.props.state.decks.decks[viewing].cards.length
+    const answering = this.props.state.decks.decks[viewing].answering
     this.toggleView()
     if (answering === (count - 1)) {
       this.setState({ quizComplete: true })
@@ -63,26 +65,26 @@ class QuizCard extends React.Component {
     }
   }
   restartQuiz = () => {
-    const { viewing } = this.props.state
+    const { viewing } = this.props.state.decks
     this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
   }
   quizHome = () => {
-    const { viewing } = this.props.state
+    const { viewing } = this.props.state.decks
     this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
     this.props.navigation.navigate('QuizStart')
   }
   render() {
-    const { viewing } = this.props.state
-    const deck = this.props.state.decks[viewing]
-    const count = this.props.state.decks[viewing].cards.length
-    const answering = this.props.state.decks[viewing].answering
+    const { viewing } = this.props.state.decks
+    const deck = this.props.state.decks.decks[viewing]
+    const count = this.props.state.decks.decks[viewing].cards.length
+    const answering = this.props.state.decks.decks[viewing].answering
     const question = deck.cards[deck.answering].question
     const answer = deck.cards[deck.answering].answer
-    const score = this.props.state.decks[viewing].score || 0
+    const score = this.props.state.decks.decks[viewing].score || 0
     if(this.state.quizComplete) {
       return (
         <View style={styles.mainContainer}>

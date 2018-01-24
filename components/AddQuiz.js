@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, View } from 'react-native'
+import { View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import AddDeck from './AddDeck'
 import AddCard from './AddCard'

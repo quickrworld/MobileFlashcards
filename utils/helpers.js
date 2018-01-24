@@ -59,9 +59,7 @@ export function setLocalNotification() {
 }
 
 function clearDecks() {
-  if (false) { // false in production
-    AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
-  }
+  AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
 }
 
 export default clearDecks

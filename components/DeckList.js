@@ -2,7 +2,9 @@ import React from  'react'
 import { FlatList, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import Deck from './Deck'
 import { connect } from 'react-redux'
-import { submitDecks } from '../actions'
+import {
+  submitDecks
+} from '../actions/decks'
 import decks from '../utils/data'
 import { lightPurp, white, blue, } from '../utils/colors'
 
@@ -22,7 +24,9 @@ function EmptyListScreen({submitDecks}) {
 class DeckList extends React.Component {
   keyExtractor = (deck) => deck.title
   render() {
-    const propDecks = (this.props.state && this.props.state.decks) || {}
+    const propDecks = (this.props.state &&
+      this.props.state.decks &&
+      this.props.state.decks.decks) || {}
     const decks = Object.keys(propDecks).reduce((decks, key) => {
       decks.push({
         title: key,

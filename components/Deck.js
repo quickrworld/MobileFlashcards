@@ -6,7 +6,9 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import { quizStart } from '../actions/index'
+import {
+  quizStart
+} from '../actions/decks'
 import { lightPurp, purple, } from '../utils/colors'
 
 class Deck extends React.Component {
