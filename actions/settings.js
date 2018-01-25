@@ -11,6 +11,7 @@ export const SUBMIT_SETTINGS_SUCCESS = 'SUBMIT_SETTINGS_SUCCESS'
 export function fetchSettingsRequest() {
   return {
     type: FETCH_SETTINGS_REQUEST,
+    settings: { syncing: true }
   }
 }
 
@@ -28,7 +29,6 @@ export function fetchSettingsSuccess(settings) {
   }
 }
 
-
 export function fetchSettings() {
   return function(dispatch) {
     dispatch(fetchSettingsRequest())
@@ -38,12 +38,7 @@ export function fetchSettings() {
         if (error) {
           dispatch(fetchSettingsFailure(error))
         } else {
-          result = result || JSON.stringify({
-            settings: {
-              displaying: false,
-            }
-          })
-          console.log('fetchSettings result', result)
+          result = result || '{ "displaying": false }'
           const settings = JSON.parse(result)
           dispatch(fetchSettingsSuccess(settings))
         }
@@ -74,9 +69,8 @@ export function submitSettingsSuccess(result) {
 
 export function submitSettings(settings) {
   return function (dispatch) {
-    console.log('***********submit settings*********', settings)
     dispatch(submitSettingsRequest(settings))
-    return AsyncStorage.mergeItem(
+    return AsyncStorage.mergeItem( // note: mergeItem
       FLASHCARDS_SETTINGS_KEY,
       JSON.stringify(settings),
       (error) => {

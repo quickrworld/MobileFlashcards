@@ -60,15 +60,15 @@ class AddCard extends Component {
     this.setState({answer: value})
   }
   submit = () => {
-    const title = this.props.state.decks.editing
+    const title = this.props.decks.editing
     const { question, answer } = this.state
     this.props.addCard(title, question, answer)
-    this.props.submitDeck(title, this.props.state.decks.decks[title])
+    this.props.submitDeck(title, this.props.decks.decks[title])
     this.setState({ question: '', answer: '' })
   }
   render() {
-    const title = this.props.state.decks.editing
-    const { cards } = this.props.state.decks.decks[title]
+    const title = this.props.decks.editing
+    const { cards } = this.props.decks.decks[title]
     const count = cards ? cards.length : 0
     const { question, answer } = this.state
     return (
@@ -179,7 +179,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { state }
+  const { decks } = state
+  return { decks }
 }
 
 function mapDispatchToProps(dispatch) {

@@ -11,14 +11,14 @@ import { connect } from 'react-redux'
 
 class SettingsButton extends React.Component {
   onPress = () => {
-    const { settings } = this.props.settings
+    const { settings } = this.props
     this.props.submitSettings({
       displaying: !(settings && settings.displaying)
     })
     this.props.fetchSettings()
   }
   render() {
-    const { settings } = this.props.settings
+    const { settings } = this.props
     const title = settings && settings.displaying
         ? 'Done'
         : 'Settings'

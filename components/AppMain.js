@@ -5,9 +5,14 @@ import AddQuiz from './AddQuiz'
 import Main from './Main'
 import { connect } from 'react-redux'
 import {
-  fetchDecks
+  fetchDecks,
 } from '../actions/decks'
-import clearDecks from '../utils/helpers'
+import {
+  fetchSettings,
+} from '../actions/settings'
+import clearDecks, {setLocalNotification} from '../utils/helpers'
+import { clearLocalNotifications } from '../utils/helpers'
+import { setLocalNotifications } from '../utils/helpers'
 
 const Tabs = TabNavigator({
   Main: {
@@ -25,9 +30,26 @@ const Tabs = TabNavigator({
 })
 
 class AppMain extends React.Component {
+  state = {
+    decksCleared: false,
+  }
   componentDidMount() {
-    clearDecks()
+    this.props.fetchSettings()
     this.props.fetchDecks()
+  }
+  componentWillReceiveProps(nextProps) {
+    if((this.state.decksCleared === false) &&
+      (nextProps.settings.deleteDataOnRestart !== this.props.settings.deleteDataOnRestart) &&
+      nextProps.settings.deleteDataOnRestart) {
+      clearDecks().then(this.props.fetchDecks())
+    }
+    this.setState({ decksCleared: true }) // too late to clear decks this launch
+    if((nextProps.settings.notifications !== this.props.settings.notifications) &&
+        !nextProps.settings.notifications) {
+        clearLocalNotifications()
+    } else {
+      setLocalNotifications()
+    }
   }
   render() {
     return (
@@ -45,12 +67,14 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { state }
+  const { settings } = state
+  return { settings }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchDecks: () => dispatch(fetchDecks()),
+    fetchSettings: () => dispatch(fetchSettings()),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(AppMain)

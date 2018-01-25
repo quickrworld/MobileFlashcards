@@ -6,7 +6,6 @@ import {
   SUBMIT_SETTINGS_FAILURE,
   SUBMIT_SETTINGS_SUCCESS,
 } from '../actions/settings'
-import {FETCH_DECKS_SUCCESS} from '../actions/decks'
 
 function settings(state={}, action) {
   const { settings } = action
@@ -16,19 +15,13 @@ function settings(state={}, action) {
     case FETCH_SETTINGS_FAILURE:
       return state
     case FETCH_SETTINGS_SUCCESS:
-    case FETCH_DECKS_SUCCESS:
       return {
         ...state,
-        settings: {
-          ...state.settings,
-          ...settings,
-        },
+        ...settings,
         syncing: false,
       }
     case SUBMIT_SETTINGS_REQUEST:
-      console.log('state', state)
-      console.log('action', action)
-      return { state }
+      return state
     case SUBMIT_SETTINGS_FAILURE:
       return state
     case SUBMIT_SETTINGS_SUCCESS:

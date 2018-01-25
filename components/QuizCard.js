@@ -51,9 +51,9 @@ class QuizCard extends React.Component {
     this.moveNext(0)
   }
   moveNext = (scoreIncrement) => {
-    const { viewing } = this.props.state.decks
-    const count = this.props.state.decks.decks[viewing].cards.length
-    const answering = this.props.state.decks.decks[viewing].answering
+    const { viewing } = this.props.decks
+    const count = this.props.decks.decks[viewing].cards.length
+    const answering = this.props.decks.decks[viewing].answering
     this.toggleView()
     if (answering === (count - 1)) {
       this.setState({ quizComplete: true })
@@ -65,26 +65,26 @@ class QuizCard extends React.Component {
     }
   }
   restartQuiz = () => {
-    const { viewing } = this.props.state.decks
+    const { viewing } = this.props.decks
     this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
   }
   quizHome = () => {
-    const { viewing } = this.props.state.decks
+    const { viewing } = this.props.decks
     this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
     this.props.navigation.navigate('QuizStart')
   }
   render() {
-    const { viewing } = this.props.state.decks
-    const deck = this.props.state.decks.decks[viewing]
-    const count = this.props.state.decks.decks[viewing].cards.length
-    const answering = this.props.state.decks.decks[viewing].answering
+    const { viewing } = this.props.decks
+    const deck = this.props.decks.decks[viewing]
+    const count = this.props.decks.decks[viewing].cards.length
+    const answering = this.props.decks.decks[viewing].answering
     const question = deck.cards[deck.answering].question
     const answer = deck.cards[deck.answering].answer
-    const score = this.props.state.decks.decks[viewing].score || 0
+    const score = this.props.decks.decks[viewing].score || 0
     if(this.state.quizComplete) {
       return (
         <View style={styles.mainContainer}>
@@ -244,7 +244,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { state }
+  const { decks } = state
+  return { decks  }
 }
 
 function mapDispatchToProps(dispatch) {

@@ -1,6 +1,7 @@
 import React from  'react'
 import { FlatList, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import Deck from './Deck'
+import SettingsPanel from './SettingsPanel'
 import { connect } from 'react-redux'
 import {
   submitDecks
@@ -21,12 +22,11 @@ function EmptyListScreen({submitDecks}) {
     </View>
   )
 }
+
 class DeckList extends React.Component {
   keyExtractor = (deck) => deck.title
   render() {
-    const propDecks = (this.props.state &&
-      this.props.state.decks &&
-      this.props.state.decks.decks) || {}
+    const propDecks = (this.props.decks && this.props.decks.decks) || {}
     const decks = Object.keys(propDecks).reduce((decks, key) => {
       decks.push({
         title: key,
@@ -42,6 +42,9 @@ class DeckList extends React.Component {
         count={item.count}
         navigation={this.props.navigation}
       />
+    }
+    if (this.props.settings.displaying) {
+      return (<SettingsPanel/>)
     }
     return (
       decks.length
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   const { settings, decks } = state
-  return { settings, decks, state }
+  return { settings, decks }
 }
 
 function mapDispatchToProps(dispatch) {

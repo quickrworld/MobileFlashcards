@@ -15,20 +15,40 @@ export function clearLocalNotification() {
 export function createNotification() {
   return {
     title: 'Study today!',
-    body: "👋 don't forget to study today!",
+    body: "📣 don't forget to study now!",
     ios: {
       sound: true,
     },
     android: {
       sound: true,
       priority: 'high',
-      sticky: false,
+      sticky: true,
       vibrate: true,
     },
   }
 }
 
-export function setLocalNotification() {
+export function clearLocalNotifications() {
+  Permissions.askAsync(Permissions.NOTIFICATIONS)
+    .then(({status}) => {
+      if(status === 'granted') {
+        Notifications.cancelAllScheduledNotificationsAsync()
+      }
+    })
+}
+
+export function setLocalNotifications(schedule) {
+  !schedule && testing
+    ? schedule = {
+        repeat: 'hour', // 'hour', 'day',
+        hour: 0, // 0..23
+        minute: 0, // 0..59
+      }
+    : schedule = {
+      repeat: 'day', // 'hour', 'day',
+      hour: 20, // 0..23
+      minute: 0, // 0..59
+    }
   AsyncStorage.getItem(FLASHCARDS_NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
@@ -37,20 +57,23 @@ export function setLocalNotification() {
           .then(({status}) => {
             if(status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync()
-              let productionSchedule = new Date()
-              productionSchedule.setDate(productionSchedule.getDate() + 1)
-              productionSchedule.setHours(20)
-              productionSchedule.setMinutes(0)
-              let productionCycle = 'day'
-              const testingSchedule = new Date()
-              testingSchedule.setHours(testingSchedule.getHours() + 1)
-              testingSchedule.setMinutes(0)
-              const testingCycle = 'hour'
+
+              let dailySchedule = new Date()
+              dailySchedule.setDate(dailySchedule.getDate() + 1)
+              dailySchedule.setHours(schedule.hour)
+              dailySchedule.setMinutes(schedule.minute)
+
+              const hourlySchedule = new Date()
+              hourlySchedule.setHours(hourlySchedule.getHours() + 1)
+              hourlySchedule.setMinutes(schedule.minute)
+
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
                 {
-                  time: testing ? testingSchedule : productionSchedule,
-                  repeat: testing ? testingCycle : productionCycle,
+                  time: schedule.repeat === 'hour'
+                          ? hourlySchedule
+                          : dailySchedule,
+                  repeat: schedule.repeat,
                 }
               )
               AsyncStorage.setItem(FLASHCARDS_NOTIFICATION_KEY, JSON.stringify(true))
@@ -61,7 +84,7 @@ export function setLocalNotification() {
 }
 
 function clearDecks() {
-  AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
+  return AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
 }
 
 export default clearDecks
