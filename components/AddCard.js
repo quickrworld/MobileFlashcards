@@ -35,18 +35,18 @@ class AddCard extends Component {
     this.setState({windowWidth: width})
     this.setState({windowHeight: height})
   }
-  _keyboardDidShow = () => {
+  keyboardDidShow = () => {
     this.setState({keyboard: true})
   }
 
-  _keyboardDidHide = () => {
+  keyboardDidHide = () => {
     this.setState({keyboard: false})
   }
   componentWillMount() {
     this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow', this._keyboardDidShow);
+      'keyboardDidShow', this.keyboardDidShow)
     this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide', this._keyboardDidHide);
+      'keyboardDidHide', this.keyboardDidHide)
   }
   componentWillUnmount() {
     Dimensions.removeEventListener('change', this.handleDimensionsChange)

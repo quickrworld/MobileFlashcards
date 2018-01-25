@@ -98,12 +98,12 @@ class QuizCard extends React.Component {
             <TouchableOpacity
               style={styles.button}
               onPress={this.restartQuiz}>
-              <Text style={styles.buttonText}>Restart</Text>
+              <Text style={styles.buttonText}>Restart Quiz</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={this.quizHome}>
-              <Text style={styles.buttonText}>Quiz Home</Text>
+              <Text style={styles.buttonText}>Back to Deck</Text>
             </TouchableOpacity>
           </View>
         </View>
