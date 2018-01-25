@@ -3,18 +3,21 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import decks from '../utils/data'
 import {blue, lightPurp, white} from '../utils/colors'
 
-function EmptyListScreen({submitDecks}) {
-  return (
-    <View style={styles.messageContainer}>
-      <Text style={styles.heading}>This screen displays available decks</Text>
-      <Text style={styles.heading}>There are no decks available</Text>
-      <Text style={styles.message}>Add decks using the NEW DECK tab</Text>
-      <Text style={styles.message}>You can also install example decks</Text>
-      <TouchableOpacity style={styles.button} onPress={() => submitDecks(decks)}>
-        <Text style={styles.buttonText}>Install example decks</Text>
-      </TouchableOpacity>
-    </View>
-  )
+class EmptyListScreen extends React.Component {
+  render() {
+    const { submitDecks } = this.props
+    return (
+      <View style={styles.messageContainer}>
+        <Text style={styles.heading}>This screen displays available decks</Text>
+        <Text style={styles.heading}>There are no decks available</Text>
+        <Text style={styles.message}>Add decks using the NEW DECK tab</Text>
+        <Text style={styles.message}>You can also install example decks</Text>
+        <TouchableOpacity style={styles.button} onPress={() => submitDecks(decks)}>
+          <Text style={styles.buttonText}>Install example decks</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
