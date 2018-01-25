@@ -29,7 +29,7 @@ export function createNotification() {
 }
 
 export function clearLocalNotifications() {
-  Permissions.askAsync(Permissions.NOTIFICATIONS)
+  return Permissions.askAsync(Permissions.NOTIFICATIONS)
     .then(({status}) => {
       if(status === 'granted') {
         Notifications.cancelAllScheduledNotificationsAsync()

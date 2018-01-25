@@ -50,6 +50,14 @@ class QuizCard extends React.Component {
   markIncorrect = () => {
     this.moveNext(0)
   }
+  setNotifications = () => {
+    if (this.props.settings && this.props.settings.notifications) {
+      setLocalNotifications({})
+      console.log("notifications set ON")
+      return
+    }
+    console.log("notification NOT set ON")
+  }
   moveNext = (scoreIncrement) => {
     const { viewing } = this.props.decks
     const count = this.props.decks.decks[viewing].cards.length
@@ -59,7 +67,7 @@ class QuizCard extends React.Component {
       this.setState({ quizComplete: true })
       this.props.quizComplete(viewing, scoreIncrement)
       clearLocalNotifications()
-        .then(setLocalNotifications({}))
+        .then(this.setNotifications())
     } else {
       this.props.nextCard(viewing, scoreIncrement)
     }
@@ -244,8 +252,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  const { decks } = state
-  return { decks  }
+  const { decks, settings } = state
+  return { decks, settings  }
 }
 
 function mapDispatchToProps(dispatch) {
