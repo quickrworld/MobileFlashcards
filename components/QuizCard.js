@@ -130,7 +130,7 @@ class QuizCard extends React.Component {
         <TouchableOpacity
           style={styles.button}
           onPress={this.toggleView}>
-          <Text style={styles.buttonText}>Answer</Text>
+          <Text style={styles.buttonText}>Show Answer</Text>
         </TouchableOpacity>}
         {this.state.showAnswer &&
         <View style={{flexDirection: this.state.orientation === 'portrait' ? 'column' : 'row'}}>
