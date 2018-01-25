@@ -14,7 +14,7 @@ import {
 } from '../actions/decks'
 import {lightPurp, purple, white} from '../utils/colors'
 import {
-  clearLocalNotification,
+  clearLocalNotifications,
   setLocalNotifications,
 } from '../utils/helpers'
 
@@ -58,7 +58,7 @@ class QuizCard extends React.Component {
     if (answering === (count - 1)) {
       this.setState({ quizComplete: true })
       this.props.quizComplete(viewing, scoreIncrement)
-      clearLocalNotification()
+      clearLocalNotifications()
         .then(setLocalNotifications({}))
     } else {
       this.props.nextCard(viewing, scoreIncrement)
