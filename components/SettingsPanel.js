@@ -1,11 +1,23 @@
 import React from 'react'
-import { Text, View, Switch, StyleSheet } from 'react-native'
+import { Text, View, Switch, StyleSheet, Animated } from 'react-native'
 import { MaterialIcons, Entypo } from '@expo/vector-icons'
 import { white, lightPurp, red} from '../utils/colors'
 import { connect } from 'react-redux'
 import {fetchSettings, submitSettings} from '../actions/settings'
 
 class SettingsPanel extends React.Component {
+  state = {
+    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+  }
+  componentDidMount() {
+    Animated.timing(
+      this.state.fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+      }
+    ).start();
+  }
   notificationsValueChange = (value) => {
     this.props.submitSettings({ notifications: value })
     this.props.fetchSettings()
@@ -15,8 +27,9 @@ class SettingsPanel extends React.Component {
     this.props.fetchSettings()
   }
   render() {
+    let { fadeAnim } = this.state;
     return(
-      <View style={{paddingTop: 8,}}>
+      <Animated.View style={{paddingTop: 8, opacity: fadeAnim, ...this.props.style }}>
         <View style={styles.item}>
           <Entypo name={'notification'} size={24} style={{
             paddingTop: 4, color: lightPurp}}/>
@@ -39,7 +52,7 @@ class SettingsPanel extends React.Component {
             value={this.props.settings && this.props.settings.deleteDataOnRestart}
             onValueChange={this.deleteDataOnRestartValueChange}/>
         </View>
-      </View>
+      </Animated.View>
     )
   }
 }
