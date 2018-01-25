@@ -15,7 +15,7 @@ import {
 import {lightPurp, purple, white} from '../utils/colors'
 import {
   clearLocalNotification,
-  setLocalNotification,
+  setLocalNotifications,
 } from '../utils/helpers'
 
 class QuizCard extends React.Component {
@@ -59,7 +59,7 @@ class QuizCard extends React.Component {
       this.setState({ quizComplete: true })
       this.props.quizComplete(viewing, scoreIncrement)
       clearLocalNotification()
-        .then(setLocalNotification())
+        .then(setLocalNotifications({}))
     } else {
       this.props.nextCard(viewing, scoreIncrement)
     }
