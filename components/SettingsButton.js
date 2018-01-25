@@ -26,8 +26,8 @@ class SettingsButton extends React.Component {
       <View>
         <TouchableOpacity
           onPress={this.onPress}
-          style={styles.button}>
-          <Text style={styles.buttonText}>{title}</Text>
+          style={styles.viewContainer}>
+          <Text style={styles.titleText}>{title}</Text>
         </TouchableOpacity>
       </View>
     )
@@ -35,17 +35,28 @@ class SettingsButton extends React.Component {
 }
 
 styles = StyleSheet.create({
-  button: {
+  viewContainer: {
     padding: 4,
     marginRight: 16,
-    backgroundColor: blue,
     borderRadius: 4,
   },
-  buttonText: {
-    color: white,
+  titleText: {
+    color: blue,
     padding: 4,
   }
 })
+// styles = StyleSheet.create({
+//   button: {
+//     padding: 4,
+//     marginRight: 16,
+//     backgroundColor: blue,
+//     borderRadius: 4,
+//   },
+//   buttonText: {
+//     color: white,
+//     padding: 4,
+//   }
+// })
 
 function mapStateToProps(state) {
   const { settings } = state

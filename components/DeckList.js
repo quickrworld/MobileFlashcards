@@ -28,7 +28,6 @@ class DeckList extends React.Component {
         navigation={this.props.navigation}
       />
     }
-
     if (this.props.settings.displaying) {
       return (<SettingsPanel/>)
     }

@@ -6,14 +6,17 @@ import QuizStart from './QuizStart'
 import AddCard from './AddCard'
 import QuizCard from './QuizCard'
 import SettingsButton from './SettingsButton'
+import HeaderLeft from './HeaderLeft'
 
 const StackMain = StackNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      title: 'Home',
       headerRight: (
         <SettingsButton/>
+      ),
+      headerLeft: (
+        <HeaderLeft/>
       )
     },
   },
@@ -36,6 +39,7 @@ const StackMain = StackNavigator({
     },
   }
 })
+
 class Main extends Component {
   render() {
     return (
