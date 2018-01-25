@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, StatusBar } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import AddQuiz from './AddQuiz'
 import Main from './Main'
@@ -13,6 +13,16 @@ import {
 import clearDecks, {setLocalNotification} from '../utils/helpers'
 import { clearLocalNotifications } from '../utils/helpers'
 import { setLocalNotifications } from '../utils/helpers'
+import { Constants } from 'expo'
+import { purple } from '../utils/colors'
+
+function MyStatusBar ({ backgroundColor, ...props }) {
+  return (
+    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
 
 const Tabs = TabNavigator({
   Main: {
@@ -54,6 +64,7 @@ class AppMain extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <MyStatusBar backgroundColor={purple} barStyle={'light-content'}/>
         <Tabs />
       </View>
     )
