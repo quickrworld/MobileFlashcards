@@ -53,10 +53,8 @@ class QuizCard extends React.Component {
   setNotifications = () => {
     if (this.props.settings && this.props.settings.notifications) {
       setLocalNotifications({})
-      console.log("notifications set ON")
       return
     }
-    console.log("notification NOT set ON")
   }
   moveNext = (scoreIncrement) => {
     const { viewing } = this.props.decks
