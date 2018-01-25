@@ -1,11 +1,11 @@
 {
   "expo": {
     "sdkVersion": "23.0.0",
-    "name": "Memory she rote",
+    "name": "Mobile Flashcards",
     "description": "A flashcard app that helps you remember facts",
     "slug": "memorysherote",
     "privacy": "unlisted",
-    "version": "0.0.1",
+    "version": "1",
     "platforms": ["ios", "android"],
     "githubUrl": "https://github.com/quickrworld/MobileFlashcards",
     "orientation": "default",
