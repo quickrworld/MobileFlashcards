@@ -7,25 +7,9 @@ export const FLASHCARDS_SETTINGS_KEY = 'MobileFlashcards:SettingsKey:1'
 
 export const FLASHCARDS_NOTIFICATION_KEY = 'Flashcards:notifications:1'
 
-export function clearLocalNotifications() {
+export function disableLocalNotifications() {
   return AsyncStorage.removeItem(FLASHCARDS_NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
-}
-
-export function createNotification() {
-  return {
-    title: 'Study today!',
-    body: "📣 don't forget to study now!",
-    ios: {
-      sound: true,
-    },
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: true,
-      vibrate: true,
-    },
-  }
 }
 
 export function clearLocalNotifications() {
@@ -36,6 +20,20 @@ export function clearLocalNotifications() {
       }
     })
 }
+
+export const createNotification = () => ({
+  title: 'Study today!',
+  body: "📣 don't forget to study!",
+  ios: {
+    sound: true,
+  },
+  android: {
+    sound: true,
+    priority: 'high',
+    sticky: true,
+    vibrate: true,
+  },
+})
 
 export function setLocalNotifications(schedule) {
   !schedule && testing
