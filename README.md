@@ -28,8 +28,7 @@ To get started right away, choose an installation directory, for example, `insta
 
 * By default the local notifications are fired every hour on the hour. Editing the 'utils/phase.js' file to set testing to false will set the notifications to fire as per the project rubric i.e. each day at 20:00 Hours.
 
-* Platforms tested
-The App has been test on the following simulators and devices:
+* The App has been test on the following simulators and devices:
     - iOS7 simulator
     - Google Nexus 5 device
     - iPhone SE device
