@@ -7,7 +7,7 @@ export const FLASHCARDS_SETTINGS_KEY = 'MobileFlashcards:SettingsKey:1'
 
 export const FLASHCARDS_NOTIFICATION_KEY = 'Flashcards:notifications:1'
 
-export function clearLocalNotification() {
+export function clearLocalNotifications() {
   return AsyncStorage.removeItem(FLASHCARDS_NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
