@@ -81,7 +81,10 @@ class QuizCard extends React.Component {
     this.props.initAnswering(viewing)
     this.setState({ showAnswer: false })
     this.setState({ quizComplete: false })
-    this.props.navigation.navigate('QuizStart')
+    // Offending line:
+    // this.props.navigation.navigate('QuizStart')
+    // Fix: The target view is on the navigation stack top, just goBack to it
+    this.props.navigation.goBack()
   }
   render() {
     const { viewing } = this.props.decks
