@@ -45,18 +45,6 @@ styles = StyleSheet.create({
     padding: 4,
   }
 })
-// styles = StyleSheet.create({
-//   button: {
-//     padding: 4,
-//     marginRight: 16,
-//     backgroundColor: blue,
-//     borderRadius: 4,
-//   },
-//   buttonText: {
-//     color: white,
-//     padding: 4,
-//   }
-// })
 
 function mapStateToProps(state) {
   const { settings } = state

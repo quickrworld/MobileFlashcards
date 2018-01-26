@@ -33,11 +33,6 @@ styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps(state) {
-  const { settings } = state
-  return {
-    settings
-  }
-}
+const mapStateToProps = (state) => ({ state });
 
 export default connect(mapStateToProps)(HeaderLeft)

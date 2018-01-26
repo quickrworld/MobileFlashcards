@@ -43,17 +43,6 @@ class DeckList extends React.Component {
   }
 }
 
-// function mapStateToProps(state) {
-//   const { settings, decks } = state
-//   return { settings, decks }
-// }
-
 const mapStateToProps = ({ settings, decks }) => ({ settings, decks })
 
-function mapDispatchToProps(dispatch) {
-  return {
-    submitDecks: (decks) => dispatch(submitDecks(decks)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
+export default connect(mapStateToProps, { submitDecks })(DeckList)

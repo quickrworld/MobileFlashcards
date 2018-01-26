@@ -58,11 +58,7 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps(state) {
-  return {
-    state
-  }
-}
+const mapStateToProps = (state) => ({ state });
 
 function mapDispatchToProps(dispatch) {
   return {

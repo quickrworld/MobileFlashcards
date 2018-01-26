@@ -27,11 +27,14 @@ class QuizStart extends React.Component {
     this.props.navigation.navigate('QuizCard')
   }
   handleDimensionsChange = ({ window }) => {
-    this.setState({orientation: window.height > window.width ? 'portrait' : 'landscape' })
+    this.setState({
+      orientation: window.height > window.width ? 'portrait' : 'landscape'
+    })
   }
   componentDidMount() {
     Dimensions.addEventListener('change', this.handleDimensionsChange)
-    // Also set the correct orientation at mount time. No change event is fired here.
+    // Also set the correct orientation at mount time.
+    // No change event is fired here.
     const {height, width} = Dimensions.get('window')
     this.setState({orientation: height > width ? 'portrait' : 'landscape' })
   }
@@ -50,11 +53,15 @@ class QuizStart extends React.Component {
           flexDirection: this.state.orientation === 'portrait' && Platform.OS === 'ios'
             ? 'column'
             : 'row'}}>
-          <TouchableOpacity style={styles.button} onPress={this.onAddCard}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={this.onAddCard}>
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={[styles.button,{
+              backgroundColor: count === 0 ? 'gray' : lightPurp
+            }]}
             onPress={this.onStartQuiz}
             disabled={count < 1}>
             <Text style={styles.buttonText}>Start Quiz</Text>
@@ -110,14 +117,12 @@ const styles = StyleSheet.create({
   },
 })
 
-function mapStateToProps(state) {
-  return {
-    title: state.decks.viewing,
-    count: (state.decks.decks[state.decks.viewing] &&
-      state.decks.decks[state.decks.viewing].cards &&
-      state.decks.decks[state.decks.viewing].cards.length) || 0
-  }
-}
+const mapStateToProps = (state) => ({
+  title: state.decks.viewing,
+  count: (state.decks.decks[state.decks.viewing] &&
+    state.decks.decks[state.decks.viewing].cards &&
+    state.decks.decks[state.decks.viewing].cards.length) || 0
+})
 
 function mapDispatchToProps(dispatch) {
   return {
