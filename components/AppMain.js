@@ -10,7 +10,8 @@ import {
 import {
   fetchSettings,
 } from '../actions/settings'
-import clearDecks, {setLocalNotification} from '../utils/helpers'
+import { clearDecks } from '../utils/helpers'
+import { disableLocalNotifications } from '../utils/helpers'
 import { clearLocalNotifications } from '../utils/helpers'
 import { setLocalNotifications } from '../utils/helpers'
 import { Constants } from 'expo'
@@ -56,7 +57,8 @@ class AppMain extends React.Component {
     this.setState({ decksCleared: true }) // too late to clear decks this launch
     if((nextProps.settings.notifications !== this.props.settings.notifications) &&
         !nextProps.settings.notifications) {
-        clearLocalNotifications()
+        // clearLocalNotifications()
+        disableLocalNotifications()
     } else {
       setLocalNotifications()
     }

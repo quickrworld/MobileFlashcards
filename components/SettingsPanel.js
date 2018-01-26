@@ -3,7 +3,8 @@ import { Text, View, Switch, StyleSheet, Animated } from 'react-native'
 import { MaterialIcons, Entypo } from '@expo/vector-icons'
 import { white, lightPurp, red} from '../utils/colors'
 import { connect } from 'react-redux'
-import {fetchSettings, submitSettings} from '../actions/settings'
+import { fetchSettings, submitSettings } from '../actions/settings'
+import { disableLocalNotifications } from '../utils/helpers'
 
 class SettingsPanel extends React.Component {
   state = {
@@ -19,6 +20,9 @@ class SettingsPanel extends React.Component {
     ).start();
   }
   notificationsValueChange = (value) => {
+    if (!value) {
+      disableLocalNotifications()
+    }
     this.props.submitSettings({ notifications: value })
     this.props.fetchSettings()
   }

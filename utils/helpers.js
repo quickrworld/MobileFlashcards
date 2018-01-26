@@ -8,8 +8,9 @@ export const FLASHCARDS_SETTINGS_KEY = 'MobileFlashcards:SettingsKey:1'
 export const FLASHCARDS_NOTIFICATION_KEY = 'Flashcards:notifications:1'
 
 export function disableLocalNotifications() {
+  console.log('disable local notifications')
   return AsyncStorage.removeItem(FLASHCARDS_NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .then(clearLocalNotifications)
 }
 
 export function clearLocalNotifications() {
@@ -81,9 +82,9 @@ export function setLocalNotifications(schedule) {
     })
 }
 
-function clearDecks() {
+export function clearDecks() {
   return AsyncStorage.removeItem(FLASHCARDS_STORAGE_KEY)
 }
 
-export default clearDecks
+// export default clearDecks
 

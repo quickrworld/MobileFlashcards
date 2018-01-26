@@ -60,11 +60,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({ state });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    quizStart: (title) => dispatch(quizStart(title))
-  }
-}
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     quizStart: (title) => dispatch(quizStart(title))
+//   }
+// }
+//
+// export default connect(mapStateToProps, mapDispatchToProps)(Deck)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Deck)
+export default connect(mapStateToProps, { quizStart })(Deck)
 
