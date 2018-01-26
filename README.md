@@ -22,11 +22,17 @@ To get started right away, choose an installation directory, for example, `insta
 
 * Review the App
 
-* Use the settings page to enable settings
+* Use the settings page to enable or disable settings for notifications and data retension
 
 * To test the local notifications wait for the hour to change. On iOS the notifications are not shown if the App is in foreground.
 
 * By default the local notifications are fired every hour on the hour. Editing the 'utils/phase.js' file to set testing to false will set the notifications to fire as per the project rubric i.e. each day at 20:00 Hours.
+
+* Platforms tested
+The App has been test on the following simulators and devices:
+    - iOS7 simulator
+    - Google Nexus 5 device
+    - iPhone SE device
 
 #### Note: Node (version 4 or later), and the latest version of yarn are prerequsites for the above
 #### Note: `installdir` can be any directory where you want to install the frontend application and the API server
