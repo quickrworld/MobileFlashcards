@@ -37,6 +37,7 @@ export const createNotification = () => ({
 })
 
 export function setLocalNotifications(schedule) {
+  console.log('set local notifications')
   !schedule && testing
     ? schedule = {
         repeat: 'hour', // 'hour', 'day',

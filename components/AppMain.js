@@ -12,7 +12,6 @@ import {
 } from '../actions/settings'
 import { clearDecks } from '../utils/helpers'
 import { disableLocalNotifications } from '../utils/helpers'
-import { clearLocalNotifications } from '../utils/helpers'
 import { setLocalNotifications } from '../utils/helpers'
 import { Constants } from 'expo'
 import { purple } from '../utils/colors'
@@ -57,9 +56,9 @@ class AppMain extends React.Component {
     this.setState({ decksCleared: true }) // too late to clear decks this launch
     if((nextProps.settings.notifications !== this.props.settings.notifications) &&
         !nextProps.settings.notifications) {
-        // clearLocalNotifications()
         disableLocalNotifications()
-    } else {
+    } else if ((nextProps.settings.notifications !== this.props.settings.notifications) &&
+      nextProps.settings.notifications) {
       setLocalNotifications()
     }
   }
