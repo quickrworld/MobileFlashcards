@@ -8,7 +8,6 @@ export const FLASHCARDS_SETTINGS_KEY = 'MobileFlashcards:SettingsKey:1'
 export const FLASHCARDS_NOTIFICATION_KEY = 'Flashcards:notifications:1'
 
 export function disableLocalNotifications() {
-  console.log('disable local notifications')
   return AsyncStorage.removeItem(FLASHCARDS_NOTIFICATION_KEY)
     .then(clearLocalNotifications)
 }
@@ -37,7 +36,6 @@ export const createNotification = () => ({
 })
 
 export function setLocalNotifications(schedule) {
-  console.log('set local notifications')
   !schedule && testing
     ? schedule = {
         repeat: 'hour', // 'hour', 'day',
@@ -67,8 +65,16 @@ export function setLocalNotifications(schedule) {
               hourlySchedule.setHours(hourlySchedule.getHours() + 1)
               hourlySchedule.setMinutes(schedule.minute)
 
+              const minuteSchedule = new Date()
+              minuteSchedule.setHours(minuteSchedule.getHours())
+              minuteSchedule.setMinutes(minuteSchedule.getMinutes() + 5)
+
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
+                // {
+                //   time: minuteSchedule,
+                //   repeat: 'minute',
+                // }
                 {
                   time: schedule.repeat === 'hour'
                           ? hourlySchedule
